@@ -8,6 +8,7 @@ It includes:
 - Response generation using LangChain and OpenAI models
 - Empathetic tone guidelines
 - Fallback responses for when no relevant information is found
+- Incorporation of conversation history and user details for context
 """
 
 import os
@@ -15,7 +16,8 @@ import logging
 from typing import List, Dict, Any, Optional
 from dotenv import load_dotenv
 
-from langchain.chat_models import ChatOpenAI
+# Updated imports to use langchain-community
+from langchain_community.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.schema import Document
@@ -72,11 +74,17 @@ class ResponseGenerator:
             temperature=float(os.getenv('TEMPERATURE', 0.3))
         )
         
-        # Create the response generation prompt template
+        # Create the response generation prompt template with conversation history and user details
         self.response_template = PromptTemplate(
-            input_variables=["context", "query", "tone_guidelines"],
+            input_variables=["context", "conversation_history", "user_details", "query", "tone_guidelines"],
             template="""
             You are a mental health support chatbot designed to provide empathetic and factually accurate responses.
+            
+            USER DETAILS:
+            {user_details}
+            
+            CONVERSATION HISTORY:
+            {conversation_history}
             
             CONTEXT INFORMATION:
             {context}
@@ -87,10 +95,16 @@ class ResponseGenerator:
             USER QUERY:
             {query}
             
-            Please provide a helpful, empathetic response based on the context information provided.
+            Please provide a helpful, empathetic response based on the context information and conversation history provided.
             Always prioritize user safety and well-being in your response.
             Do not diagnose conditions or provide medical advice.
             If the context doesn't contain relevant information, acknowledge this and suggest seeking professional help.
+            
+            Important: Reference the user's name and previous mentions if provided in the user details. 
+            Build on information they've shared before rather than treating this as an isolated question.
+            If they've mentioned specific anxiety triggers or situations, refer to those in your response.
+            
+            Your response should be personal, continuity-focused, and show you remember their previous messages.
             
             RESPONSE:
             """
@@ -137,7 +151,11 @@ class ResponseGenerator:
             "Use phrases like 'I understand', 'That sounds difficult', or 'It's okay to feel this way'.",
             "Balance empathy with factual information from the provided context.",
             "When suggesting strategies, present them as options rather than commands.",
-            "Acknowledge the limits of your support and encourage professional help when appropriate."
+            "Acknowledge the limits of your support and encourage professional help when appropriate.",
+            "IMPORTANT: Refer to the user by name if they've mentioned it in previous messages.",
+            "Connect your response to what they've shared before to maintain continuity.",
+            "If they've mentioned specific anxiety triggers or situations, use that information to personalize your response.",
+            "Show that you remember their specific concerns and tailor your advice to their unique situation."
         ]
         
         return "\n".join(f"- {guideline}" for guideline in guidelines)
@@ -164,13 +182,15 @@ class ResponseGenerator:
         
         return False
     
-    def generate_response(self, query: str, documents: List[Document]) -> str:
+    def generate_response(self, query: str, documents: List[Document], conversation_history: str = "", user_details: str = "") -> str:
         """
-        Generate an empathetic and factually accurate response based on retrieved documents.
+        Generate an empathetic and factually accurate response based on retrieved documents and conversation history.
         
         Args:
             query: User query
             documents: List of retrieved documents
+            conversation_history: String representation of conversation history
+            user_details: String representation of user details
             
         Returns:
             Generated response
@@ -188,14 +208,29 @@ class ResponseGenerator:
         # Get empathetic tone guidelines
         tone_guidelines = self._get_empathetic_tone_guidelines()
         
+        # Log conversation history and user details length for debugging
+        history_length = len(conversation_history.split("\n")) if conversation_history else 0
+        logger.info(f"Conversation history contains {history_length} lines")
+        logger.info(f"User details: {user_details}")
+        
         try:
             # Generate response
             if not documents:
                 logger.info("No relevant documents found, using fallback response")
                 return FALLBACK_RESPONSE
             
+            # Use empty string if no conversation history or user details are provided
+            if not conversation_history:
+                conversation_history = "No previous conversation."
+                logger.warning("No conversation history provided to response generator")
+                
+            if not user_details:
+                user_details = "No specific user details available."
+            
             response = self.response_chain.run(
                 context=context,
+                conversation_history=conversation_history,
+                user_details=user_details,
                 query=query,
                 tone_guidelines=tone_guidelines
             )
