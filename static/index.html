@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindful Companion | Mental Health Support</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="/static/favicon.png">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fa-solid fa-brain logo-icon"></i>
+                    <span class="logo-text">Mindful Companion</span>
+                </div>
+                <button id="newChatButton" class="new-chat-btn">
+                    <i class="fa-solid fa-plus"></i> New Chat
+                </button>
+            </div>
+            <div class="sidebar-body">
+                <div class="chat-history">
+                    <h3>Recent Conversations</h3>
+                    <ul id="chatHistoryList">
+                        <li class="active">
+                            <i class="fa-regular fa-comment-dots"></i>
+                            <span>Current Session</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <button id="clearHistoryButton" class="sidebar-btn">
+                    <i class="fa-solid fa-trash-can"></i>
+                    <span>Clear conversations</span>
+                </button>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <span class="user-name">Guest User</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="chat-container" id="chatContainer">
+                <div class="welcome-screen" id="welcomeScreen">
+                    <div class="welcome-content">
+                        <h1>Welcome to Mindful Companion</h1>
+                        <p>Your confidential space for mental health support and guidance.</p>
+                        
+                        <div class="welcome-features">
+                            <div class="feature">
+                                <i class="fa-solid fa-lock"></i>
+                                <h3>Confidential Support</h3>
+                                <p>Your conversations are private and secure</p>
+                            </div>
+                            <div class="feature">
+                                <i class="fa-solid fa-book-open"></i>
+                                <h3>Evidence-Based</h3>
+                                <p>Guidance based on proven techniques</p>
+                            </div>
+                            <div class="feature">
+                                <i class="fa-solid fa-heart"></i>
+                                <h3>Compassionate</h3>
+                                <p>Non-judgmental, empathetic responses</p>
+                            </div>
+                        </div>
+                        
+                        <div class="example-prompts">
+                            <h3>Try asking about:</h3>
+                            <div class="prompt-buttons">
+                                <button class="prompt-btn">Anxiety management techniques</button>
+                                <button class="prompt-btn">How to improve sleep quality</button>
+                                <button class="prompt-btn">Coping with stress at work</button>
+                                <button class="prompt-btn">Mindfulness exercises</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="messages-container">
+                    <div class="messages" id="messages"></div>
+                </div>
+                
+                <div id="crisisAlert" class="crisis-alert hidden">
+                    <button class="close-alert"><i class="fa-solid fa-xmark"></i></button>
+                    <h3><i class="fa-solid fa-triangle-exclamation"></i> Crisis Resources</h3>
+                    <p>If you're in immediate danger, please call emergency services (911) or reach out to:</p>
+                    <ul>
+                        <li>National Suicide Prevention Lifeline: <strong>988</strong> or <strong>1-800-273-8255</strong></li>
+                        <li>Crisis Text Line: Text <strong>HOME</strong> to <strong>741741</strong></li>
+                    </ul>
+                </div>
+                
+                <div class="input-container">
+                    <div class="input-wrapper">
+                        <textarea id="messageInput" placeholder="Message Mindful Companion..." rows="1"></textarea>
+                        <button id="sendButton" class="send-btn" disabled>
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="disclaimer">
+                        <p>Mindful Companion provides general mental health support but is not a substitute for professional care.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-group">
+                    <h3>Display</h3>
+                    <div class="setting">
+                        <label for="themeSelector">Theme</label>
+                        <select id="themeSelector">
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                            <option value="system">System</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="settings-group">
+                    <h3>Privacy</h3>
+                    <div class="setting">
+                        <label for="autoDeleteSwitch">Auto-delete conversations after 30 days</label>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="autoDeleteSwitch" checked>
+                            <span class="toggle-slider"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="save-settings-btn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
