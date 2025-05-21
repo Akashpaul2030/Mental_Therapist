@@ -8,7 +8,9 @@ import time
 import json
 import os
 import asyncio
+import datetime
 from pathlib import Path
+from fastapi import WebSocketDisconnect
 
 # Import your existing chatbot components
 from src.chatbot import MentalHealthChatbot
@@ -65,14 +67,23 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
     await websocket.accept()
     active_connections[client_id] = websocket
     
-    # Send initial greeting
-    greeting = chatbot.start_conversation(client_id)
-    await websocket.send_json({
-        "type": "message",
-        "content": greeting,
-        "timestamp": time.time(),
-        "sender": "bot"
-    })
+    # Send initial greeting or load existing conversation
+    if not chatbot.memory.get_formatted_history(client_id):
+        # New conversation
+        greeting = chatbot.start_conversation(client_id)
+        await websocket.send_json({
+            "type": "message",
+            "content": greeting,
+            "timestamp": time.time(),
+            "sender": "bot"
+        })
+    else:
+        # Existing conversation - send confirmation of connection
+        await websocket.send_json({
+            "type": "system",
+            "content": "Connected to existing conversation",
+            "timestamp": time.time()
+        })
     
     try:
         while True:
@@ -118,21 +129,25 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
                             "sender": "bot"
                         })
                     except Exception as e:
-                        print(f"Error processing message: {e}")
+                        logger.error(f"Error processing message: {e}")
                         await websocket.send_json({
                             "type": "error",
                             "content": "Sorry, I encountered an issue while processing your message. Please try again.",
                             "timestamp": time.time()
                         })
             except json.JSONDecodeError:
-                print(f"Received invalid JSON: {data}")
+                logger.error(f"Received invalid JSON: {data}")
                 continue
+    except WebSocketDisconnect:
+        # Handle normal disconnection
+        logger.info(f"WebSocket disconnected for client: {client_id}")
     except Exception as e:
-        print(f"WebSocket error: {e}")
+        logger.error(f"WebSocket error: {e}")
     finally:
+        # Remove from active connections whether closed or not
         if client_id in active_connections:
             del active_connections[client_id]
-        await websocket.close()
+        # DO NOT call await websocket.close() here as it might already be closed
 
 @app.post("/clear_history/{client_id}")
 async def clear_history(client_id: str):
@@ -166,6 +181,66 @@ async def health_check():
         "timestamp": time.time(),
         "active_connections": len(active_connections)
     }
+
+@app.get("/api/conversations")
+async def get_conversations():
+    """Get all conversations."""
+    try:
+        conversations = chatbot.memory.get_all_conversations()
+        return conversations
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve conversations: {str(e)}")
+
+@app.get("/api/conversations/{user_id}")
+async def get_conversation(user_id: str):
+    """Get a specific conversation."""
+    try:
+        messages = chatbot.memory.get_conversation_messages(user_id)
+        user_details = chatbot.memory.get_user_details(user_id)
+        return {
+            "messages": messages,
+            "user_details": user_details
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve conversation: {str(e)}")
+
+@app.post("/api/conversations/new")
+async def create_new_conversation():
+    """Create a new conversation."""
+    try:
+        # Generate a unique user ID with timestamp and UUID
+        user_id = f"user_{int(time.time())}_{uuid.uuid4().hex[:8]}"
+        
+        # Initialize an empty conversation in memory
+        chatbot.memory.clear_history(user_id)
+        
+        # Start the conversation with initial greeting
+        greeting = chatbot.start_conversation(user_id)
+        
+        # Store the initial greeting in memory
+        chatbot.memory.add_bot_message(user_id, greeting)
+        
+        # Return success response with user ID and timestamp
+        return {
+            "user_id": user_id,
+            "created_at": datetime.datetime.now().isoformat(),
+            "initial_message": greeting,
+            "success": True
+        }
+    except Exception as e:
+        # Log the full error with traceback
+        import traceback
+        error_details = traceback.format_exc()
+        logger.error(f"Error creating new conversation: {str(e)}\n{error_details}")
+        
+        # Return error response
+        raise HTTPException(
+            status_code=500,
+            detail={
+                "error": "Failed to create new conversation",
+                "message": str(e)
+            }
+        )
 
 # Run the application
 if __name__ == "__main__":

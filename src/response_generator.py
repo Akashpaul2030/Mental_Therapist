@@ -16,9 +16,8 @@ import logging
 from typing import List, Dict, Any, Optional
 from dotenv import load_dotenv
 
-# Updated imports to use langchain-community
+# Updated imports to use langchain-community and newer LangChain patterns
 from langchain_community.chat_models import ChatOpenAI
-from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain.schema import Document
 
@@ -110,11 +109,8 @@ class ResponseGenerator:
             """
         )
         
-        # Create the LLM chain
-        self.response_chain = LLMChain(
-            llm=self.llm,
-            prompt=self.response_template
-        )
+        # Create the response chain using the newer pipe syntax
+        self.response_chain = self.response_template | self.llm
         
     def _format_context(self, documents: List[Document]) -> str:
         """
@@ -227,13 +223,22 @@ class ResponseGenerator:
             if not user_details:
                 user_details = "No specific user details available."
             
-            response = self.response_chain.run(
-                context=context,
-                conversation_history=conversation_history,
-                user_details=user_details,
-                query=query,
-                tone_guidelines=tone_guidelines
-            )
+            # Use the invoke method with the new chain pattern
+            result = self.response_chain.invoke({
+                "context": context,
+                "conversation_history": conversation_history,
+                "user_details": user_details,
+                "query": query,
+                "tone_guidelines": tone_guidelines
+            })
+            
+            # Extract the text content from the result
+            # Depending on your LangChain version, this might need to be adjusted
+            if hasattr(result, 'content'):
+                response = result.content
+            else:
+                # If result is already a string, use it directly
+                response = str(result)
             
             logger.info("Response generated successfully")
             return response

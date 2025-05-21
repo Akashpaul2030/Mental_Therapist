@@ -27,8 +27,24 @@ function initApp() {
     // Check for dark mode preference
     checkDarkModePreference();
     
+    // Get or create a session ID
+    let sessionId = localStorage.getItem('currentSessionId');
+    if (!sessionId) {
+        sessionId = `user_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+        localStorage.setItem('currentSessionId', sessionId);
+    }
+    
+    // Set current session
+    currentSession = {
+        id: sessionId,
+        title: "Current Session"
+    };
+    
     // Connect to WebSocket
-    connectWebSocket();
+    connectWebSocket(sessionId);
+    
+    // Load conversation list
+    loadConversationList();
     
     // Setup event listeners
     setupEventListeners();
@@ -166,13 +182,177 @@ function setupTextareaAutoResize() {
     });
 }
 
-// Connect to WebSocket
-function connectWebSocket() {
+// Load all conversations
+async function loadConversationList() {
+    try {
+        const response = await fetch('/api/conversations');
+        if (response.ok) {
+            const conversations = await response.json();
+            
+            // Clear existing list
+            chatHistoryList.innerHTML = '';
+            
+            // Add current session first
+            const currentLi = document.createElement('li');
+            currentLi.classList.add('active');
+            currentLi.setAttribute('data-id', currentSession.id);
+            currentLi.innerHTML = `
+                <i class="fa-regular fa-comment-dots"></i>
+                <span>${currentSession.title}</span>
+            `;
+            chatHistoryList.appendChild(currentLi);
+            
+            // Add past conversations
+            for (const [userId, convData] of Object.entries(conversations)) {
+                if (userId === currentSession.id) continue; // Skip current session
+                
+                const li = document.createElement('li');
+                li.setAttribute('data-id', userId);
+                li.innerHTML = `
+                    <i class="fa-regular fa-comment-dots"></i>
+                    <span>${convData.title}</span>
+                `;
+                
+                // Add click event to load this conversation
+                li.addEventListener('click', () => loadConversation(userId));
+                
+                chatHistoryList.appendChild(li);
+            }
+        }
+    } catch (error) {
+        console.error('Error loading conversation list:', error);
+    }
+}
+
+// Load a specific conversation
+async function loadConversation(userId) {
+    try {
+        const response = await fetch(`/api/conversations/${userId}`);
+        if (response.ok) {
+            const data = await response.json();
+            const messages = data.messages;
+            
+            // Clear current messages
+            messagesContainer.innerHTML = '';
+            
+            // Hide welcome screen
+            welcomeScreen.classList.add('hidden');
+            messagesContainerParent.style.display = 'block';
+            
+            // Reset message history
+            messageHistory = [];
+            
+            // Display messages
+            for (const msg of messages) {
+                if (msg.role === 'user') {
+                    addUserMessage(msg.content);
+                } else if (msg.role === 'assistant') {
+                    addBotMessage(msg.content);
+                }
+                
+                // Add to message history
+                messageHistory.push({
+                    role: msg.role,
+                    content: msg.content,
+                    timestamp: Date.now() // Approximate timestamp
+                });
+            }
+            
+            // Update current session
+            currentSession = {
+                id: userId,
+                title: messages.length > 0 && messages[0].role === 'user' 
+                    ? truncateTitle(messages[0].content) 
+                    : "Loaded Conversation"
+            };
+            
+            // Update sidebar active item
+            document.querySelectorAll('.chat-history li').forEach(li => {
+                li.classList.remove('active');
+                if (li.getAttribute('data-id') === userId) {
+                    li.classList.add('active');
+                }
+            });
+            
+            // Connect websocket with this user ID
+            if (ws) {
+                ws.close();
+            }
+            connectWebSocket(userId);
+            
+            // Scroll to bottom
+            scrollToBottom();
+        }
+    } catch (error) {
+        console.error('Error loading conversation:', error);
+    }
+}
+
+// Helper to create truncated title
+function truncateTitle(message) {
+    const words = message.split(' ');
+    if (words.length > 3) {
+        return words.slice(0, 3).join(' ') + '...';
+    }
+    return message;
+}
+
+// Create a new conversation
+async function startNewChat() {
+    try {
+        const response = await fetch('/api/conversations/new', {
+            method: 'POST'
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            const newUserId = data.user_id;
+            
+            // Clear message container
+            messagesContainer.innerHTML = '';
+            
+            // Reset message history
+            messageHistory = [];
+            
+            // Hide crisis alert if visible
+            if (crisisAlert) {
+                crisisAlert.classList.add('hidden');
+            }
+            
+            // Show welcome screen
+            welcomeScreen.classList.remove('hidden');
+            messagesContainerParent.style.display = 'none';
+            
+            // Set current session
+            currentSession = {
+                id: newUserId,
+                title: "New Conversation"
+            };
+            
+            // Update sidebar
+            loadConversationList();
+            
+            // Reconnect WebSocket with new user ID
+            if (ws) {
+                ws.close();
+            }
+            connectWebSocket(newUserId);
+        }
+    } catch (error) {
+        console.error('Error creating new conversation:', error);
+    }
+}
+
+// Update the websocket connection function to use the user ID
+function connectWebSocket(userId = null) {
+    // Use the provided user ID or the current session ID
+    const socketUserId = userId || currentSession.id;
+    
     // Get the current host
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const host = window.location.host;
     
-    ws = new WebSocket(`${protocol}//${host}/ws/${clientId}`);
+    ws = new WebSocket(`${protocol}//${host}/ws/${socketUserId}`);
     
     ws.onopen = () => {
         console.log('Connected to WebSocket');
@@ -200,9 +380,17 @@ function connectWebSocket() {
                     timestamp: data.timestamp || Date.now()
                 });
                 
-                // Check for crisis keywords
-                const crisisKeywords = ['suicide', 'kill myself', 'end my life', 'crisis', 'emergency'];
-                if (crisisKeywords.some(keyword => data.content.toLowerCase().includes(keyword))) {
+                // Check for crisis keywords - ONLY in the bot's response about serious topics
+                const seriousCrisisKeywords = ['suicide', 'kill myself', 'end my life', 'harming yourself', 'self-harm'];
+                const moderateCrisisKeywords = ['crisis', 'emergency', 'urgent help'];
+
+                // Only show crisis alert for serious keywords or multiple moderate keywords
+                const content = data.content.toLowerCase();
+                const hasSeriousCrisisKeyword = seriousCrisisKeywords.some(keyword => content.includes(keyword));
+                const moderateKeywordsFound = moderateCrisisKeywords.filter(keyword => content.includes(keyword));
+
+                // Show the alert only if serious keywords are found or multiple moderate keywords
+                if (hasSeriousCrisisKeyword || moderateKeywordsFound.length >= 2) {
                     crisisAlert.classList.remove('hidden');
                 }
                 
@@ -222,7 +410,7 @@ function connectWebSocket() {
         console.log('Disconnected from WebSocket');
         addSystemMessage('Connection lost. Trying to reconnect...');
         // Try to reconnect after 3 seconds
-        setTimeout(connectWebSocket, 3000);
+        setTimeout(() => connectWebSocket(socketUserId), 3000);
     };
     
     ws.onerror = (error) => {
@@ -418,7 +606,7 @@ function scrollToBottom() {
 // Clear chat history
 async function clearChatHistory() {
     try {
-        const response = await fetch(`/clear_history/${clientId}`, { method: 'POST' });
+        const response = await fetch(`/clear_history/${currentSession.id}`, { method: 'POST' });
         if (response.ok) {
             // Clear UI
             messagesContainer.innerHTML = '';
@@ -442,65 +630,13 @@ async function clearChatHistory() {
     }
 }
 
-// Start a new chat
-function startNewChat() {
-    // Clear message container
-    messagesContainer.innerHTML = '';
-    
-    // Reset message history
-    messageHistory = [];
-    
-    // Hide crisis alert if visible
-    crisisAlert.classList.add('hidden');
-    
-    // Show welcome screen
-    welcomeScreen.classList.remove('hidden');
-    messagesContainerParent.style.display = 'none';
-    
-    // Clear input
-    messageInput.value = '';
-    messageInput.style.height = 'auto';
-    sendButton.disabled = true;
-    
-    // Set current session
-    currentSession = {
-        id: new Date().toISOString(),
-        title: "Current Session"
-    };
-    
-    // Update UI
-    updateChatHistoryList();
-    
-    // Reconnect WebSocket (optional, to start fresh)
-    if (ws) {
-        ws.close();
-    }
-    connectWebSocket();
-}
-
-// Update chat title based on first message
+// Update the chat title based on first message
 function updateChatTitle(message) {
     // Create a title from the first few words of the message
-    const words = message.split(' ');
-    const titleWords = words.slice(0, 4);
-    const title = titleWords.join(' ') + (words.length > 4 ? '...' : '');
+    const title = truncateTitle(message);
     
     currentSession.title = title;
-    updateChatHistoryList();
-}
-
-// Update the chat history list in the sidebar
-function updateChatHistoryList() {
-    chatHistoryList.innerHTML = '';
-    
-    const li = document.createElement('li');
-    li.classList.add('active');
-    li.innerHTML = `
-        <i class="fa-regular fa-comment-dots"></i>
-        <span>${currentSession.title}</span>
-    `;
-    
-    chatHistoryList.appendChild(li);
+    loadConversationList(); // Refresh the conversation list with new title
 }
 
 // Event listener for when DOM is loaded
@@ -511,7 +647,7 @@ document.addEventListener('visibilitychange', function() {
     if (document.visibilityState === 'visible') {
         // Check if WebSocket is closed and reconnect if needed
         if (ws && (ws.readyState === WebSocket.CLOSED || ws.readyState === WebSocket.CLOSING)) {
-            connectWebSocket();
+            connectWebSocket(currentSession.id);
         }
     }
 });

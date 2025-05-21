@@ -113,14 +113,54 @@ class CrisisDetector:
         """
         message_lower = message.lower()
         
-        # Check for crisis keywords
-        for keyword in self.crisis_keywords:
-            # Use word boundary to match whole words
+        # Skip very short messages to avoid false positives
+        if len(message_lower.split()) < 3:
+            return False
+            
+        # Define different levels of crisis keywords
+        severe_keywords = [
+            "suicide", "kill myself", "end my life", "want to die",
+            "going to kill myself", "planning to end it", "taking my life",
+            "don't want to live", "better off dead", "no reason to live"
+        ]
+        
+        moderate_keywords = [
+            "self-harm", "hurt myself", "can't go on", "hopeless",
+            "worthless", "no hope", "no future", "too much pain",
+            "can't take it", "don't want to be here"
+        ]
+        
+        # Negation words to avoid false positives
+        negation_words = ["not", "don't", "never", "no", "won't", "wouldn't", "shouldn't"]
+        
+        # Check for severe keywords - immediate crisis detection
+        for keyword in severe_keywords:
             pattern = r'\b' + re.escape(keyword) + r'\b'
             if re.search(pattern, message_lower):
-                logger.warning(f"Crisis keyword detected: {keyword}")
-                self.in_crisis_mode = True
-                return True
+                # Check for negation before the keyword
+                words_before = message_lower[:message_lower.find(keyword)].split()
+                if not any(neg in words_before[-3:] for neg in negation_words):
+                    logger.warning(f"Severe crisis keyword detected: {keyword}")
+                    self.in_crisis_mode = True
+                    return True
+        
+        # For moderate keywords, require more context or multiple matches
+        moderate_matches = 0
+        for keyword in moderate_keywords:
+            pattern = r'\b' + re.escape(keyword) + r'\b'
+            if re.search(pattern, message_lower):
+                # Check for negation before the keyword
+                words_before = message_lower[:message_lower.find(keyword)].split()
+                if not any(neg in words_before[-3:] for neg in negation_words):
+                    moderate_matches += 1
+        
+        # Only trigger crisis mode if multiple moderate keywords are found
+        # or if a moderate keyword appears with strong emotional context
+        emotional_context = any(word in message_lower for word in ["really", "so", "very", "extremely", "absolutely"])
+        if moderate_matches >= 2 or (moderate_matches >= 1 and emotional_context):
+            logger.warning(f"Multiple moderate crisis keywords detected")
+            self.in_crisis_mode = True
+            return True
         
         return False
     

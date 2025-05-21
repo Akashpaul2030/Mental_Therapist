@@ -1,15 +1,18 @@
 """
 Memory Manager Module for Mental Health Chatbot
 
-This module handles conversation memory using langgraph's InMemoryStore.
+This module handles conversation memory using LangChain's ChatMessageHistory.
 It tracks user details and conversation history to provide context for responses.
 """
 
 import logging
 import os
-from typing import Dict, List, Any, Optional
-from langgraph.store.memory import InMemoryStore
+from typing import Dict, List, Any, Optional, Tuple
 from dotenv import load_dotenv
+from langchain.memory import ChatMessageHistory, ConversationBufferMemory
+from langchain.schema import HumanMessage, AIMessage, SystemMessage
+import json
+import datetime
 
 # Load environment variables
 load_dotenv()
@@ -22,36 +25,93 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Create data directory if it doesn't exist
+os.makedirs('data', exist_ok=True)
+
 class MentalHealthMemoryManager:
-    """Class to manage mental health chatbot memory."""
+    """Class to manage mental health chatbot memory using LangChain's chat history."""
     
     def __init__(self, max_history_length: int = 10):
         """Initialize the memory manager."""
-        self.store = {}  # Simple dictionary instead of InMemoryStore
+        self.chat_histories = {}  # Dictionary to store chat histories by user ID
+        self.user_details = {}  # Dictionary to store user details by user ID
         self.max_history_length = max_history_length
         self.user_detail_keys = ['name', 'triggers', 'situations', 'concerns']
+        self.memory_file = os.path.join('data', 'chat_memory.json')
+        self.load_memory_from_file()
         logger.info("Initialized mental health memory manager")
     
-    def get_user_entry(self, user_id: str) -> Dict:
+    def load_memory_from_file(self):
+        """Load memory from file if it exists."""
+        try:
+            if os.path.exists(self.memory_file):
+                with open(self.memory_file, 'r') as f:
+                    data = json.load(f)
+                    
+                    # Load user details
+                    self.user_details = data.get('user_details', {})
+                    
+                    # Create ChatMessageHistory for each conversation
+                    for user_id, messages in data.get('conversations', {}).items():
+                        history = ChatMessageHistory()
+                        for msg in messages:
+                            if msg['role'] == 'user':
+                                history.add_user_message(msg['content'])
+                            elif msg['role'] == 'assistant':
+                                history.add_ai_message(msg['content'])
+                            elif msg['role'] == 'system':
+                                history.add_message(SystemMessage(content=msg['content']))
+                        
+                        self.chat_histories[user_id] = history
+                    
+                logger.info(f"Loaded memory for {len(self.chat_histories)} conversations from file")
+        except Exception as e:
+            logger.error(f"Error loading memory from file: {e}")
+    
+    def save_memory_to_file(self):
+        """Save memory to file."""
+        try:
+            # Prepare data structure
+            data = {
+                'user_details': self.user_details,
+                'conversations': {}
+            }
+            
+            # Convert ChatMessageHistory to serializable format
+            for user_id, history in self.chat_histories.items():
+                messages = []
+                for msg in history.messages:
+                    if isinstance(msg, HumanMessage):
+                        messages.append({'role': 'user', 'content': msg.content})
+                    elif isinstance(msg, AIMessage):
+                        messages.append({'role': 'assistant', 'content': msg.content})
+                    elif isinstance(msg, SystemMessage):
+                        messages.append({'role': 'system', 'content': msg.content})
+                
+                data['conversations'][user_id] = messages
+            
+            # Save to file
+            with open(self.memory_file, 'w') as f:
+                json.dump(data, f, indent=2)
+            
+            logger.info(f"Saved memory for {len(self.chat_histories)} conversations to file")
+        except Exception as e:
+            logger.error(f"Error saving memory to file: {e}")
+    
+    def get_chat_history(self, user_id: str) -> ChatMessageHistory:
         """
-        Get or create a user entry in the memory store.
+        Get or create a chat history for a user.
         
         Args:
             user_id: Unique identifier for the user
             
         Returns:
-            User memory entry dictionary
+            ChatMessageHistory for the user
         """
-        key = f"user_{user_id}"
-        if key not in self.store:
-            # Initialize a new user entry
-            self.store[key] = {
-                "conversation": [],
-                "details": {k: None for k in self.user_detail_keys}
-            }
-            logger.info(f"Created new memory entry for user {user_id}")
+        if user_id not in self.chat_histories:
+            self.chat_histories[user_id] = ChatMessageHistory()
         
-        return self.store[key]
+        return self.chat_histories[user_id]
     
     def add_user_message(self, user_id: str, message: str) -> None:
         """
@@ -61,14 +121,19 @@ class MentalHealthMemoryManager:
             user_id: Unique identifier for the user
             message: User's message
         """
-        entry = self.get_user_entry(user_id)
+        # Get chat history
+        chat_history = self.get_chat_history(user_id)
         
-        # Add user message to conversation
-        entry["conversation"].append({"role": "user", "content": message})
+        # Add message
+        chat_history.add_user_message(message)
         
-        # Trim history if needed
-        if len(entry["conversation"]) > self.max_history_length * 2:
-            entry["conversation"] = entry["conversation"][-(self.max_history_length * 2):]
+        # Extract details from message
+        details = self.extract_details_from_message(message)
+        if details:
+            self.update_user_details(user_id, details)
+        
+        # Save to file after updates
+        self.save_memory_to_file()
         
         logger.info(f"Added user message for user {user_id}")
     
@@ -80,10 +145,14 @@ class MentalHealthMemoryManager:
             user_id: Unique identifier for the user
             message: Bot's message
         """
-        entry = self.get_user_entry(user_id)
+        # Get chat history
+        chat_history = self.get_chat_history(user_id)
         
-        # Add bot message to conversation
-        entry["conversation"].append({"role": "assistant", "content": message})
+        # Add message
+        chat_history.add_ai_message(message)
+        
+        # Save to file after updates
+        self.save_memory_to_file()
         
         logger.info(f"Added bot message for user {user_id}")
     
@@ -95,12 +164,14 @@ class MentalHealthMemoryManager:
             user_id: Unique identifier for the user
             details: Dictionary of user details to update
         """
-        entry = self.get_user_entry(user_id)
+        # Initialize user details if not exists
+        if user_id not in self.user_details:
+            self.user_details[user_id] = {k: None for k in self.user_detail_keys}
         
         # Update only valid detail keys
         for k, v in details.items():
             if k in self.user_detail_keys and v:
-                entry["details"][k] = v
+                self.user_details[user_id][k] = v
         
         logger.info(f"Updated details for user {user_id}")
     
@@ -148,18 +219,73 @@ class MentalHealthMemoryManager:
         
         return details
     
-    def get_conversation_history(self, user_id: str) -> List[Dict[str, str]]:
+    def get_conversation_messages(self, user_id: str) -> List[Dict[str, str]]:
         """
-        Get the conversation history for a user.
+        Get the conversation messages for a user in a serializable format.
         
         Args:
             user_id: Unique identifier for the user
             
         Returns:
-            List of conversation messages
+            List of message dictionaries with 'role' and 'content'
         """
-        entry = self.get_user_entry(user_id)
-        return entry["conversation"]
+        if user_id not in self.chat_histories:
+            return []
+        
+        history = self.chat_histories[user_id]
+        messages = []
+        
+        for msg in history.messages:
+            if isinstance(msg, HumanMessage):
+                messages.append({'role': 'user', 'content': msg.content})
+            elif isinstance(msg, AIMessage):
+                messages.append({'role': 'assistant', 'content': msg.content})
+        
+        return messages
+    
+    def get_all_conversations(self) -> Dict[str, Dict]:
+        """
+        Get all conversations with basic metadata.
+        
+        Returns:
+            Dictionary mapping user_id to conversation metadata
+        """
+        result = {}
+        
+        for user_id, history in self.chat_histories.items():
+            # Skip empty conversations
+            if not history.messages:
+                continue
+                
+            # Get first message for title
+            first_message = None
+            for msg in history.messages:
+                if isinstance(msg, HumanMessage):
+                    first_message = msg.content
+                    break
+            
+            # Create title from first message
+            title = "New Conversation"
+            if first_message:
+                words = first_message.split()
+                if len(words) > 3:
+                    title = " ".join(words[:3]) + "..."
+                else:
+                    title = first_message
+            
+            # Count messages
+            message_count = len([msg for msg in history.messages])
+            
+            # Get timestamp (approximated from current time)
+            timestamp = datetime.datetime.now().isoformat()
+            
+            result[user_id] = {
+                'title': title,
+                'message_count': message_count,
+                'last_updated': timestamp
+            }
+        
+        return result
     
     def get_user_details(self, user_id: str) -> Dict:
         """
@@ -171,8 +297,7 @@ class MentalHealthMemoryManager:
         Returns:
             Dictionary of user details
         """
-        entry = self.get_user_entry(user_id)
-        return entry["details"]
+        return self.user_details.get(user_id, {})
     
     def get_formatted_history(self, user_id: str) -> str:
         """
@@ -184,14 +309,17 @@ class MentalHealthMemoryManager:
         Returns:
             Formatted conversation history
         """
-        conversation = self.get_conversation_history(user_id)
-        if not conversation:
+        if user_id not in self.chat_histories:
             return ""
         
+        history = self.chat_histories[user_id]
         formatted_history = []
-        for msg in conversation:
-            role = "User" if msg["role"] == "user" else "Assistant"
-            formatted_history.append(f"{role}: {msg['content']}")
+        
+        for msg in history.messages:
+            if isinstance(msg, HumanMessage):
+                formatted_history.append(f"User: {msg.content}")
+            elif isinstance(msg, AIMessage):
+                formatted_history.append(f"Assistant: {msg.content}")
         
         return "\n\n".join(formatted_history)
     
@@ -237,10 +365,9 @@ class MentalHealthMemoryManager:
         Args:
             user_id: Unique identifier for the user
         """
-        entry = self.get_user_entry(user_id)
-        
-        # Clear conversation but keep user details
-        entry["conversation"] = []
+        if user_id in self.chat_histories:
+            self.chat_histories[user_id] = ChatMessageHistory()
+            self.save_memory_to_file()
         
         logger.info(f"Cleared conversation history for user {user_id}")
     
@@ -251,12 +378,12 @@ class MentalHealthMemoryManager:
         Args:
             user_id: Unique identifier for the user
         """
-        key = f"user_{user_id}"
+        if user_id in self.chat_histories:
+            self.chat_histories[user_id] = ChatMessageHistory()
         
-        # Create a fresh entry
-        self.store[key] = {
-            "conversation": [],
-            "details": {k: None for k in self.user_detail_keys}
-        }
+        if user_id in self.user_details:
+            self.user_details[user_id] = {k: None for k in self.user_detail_keys}
+        
+        self.save_memory_to_file()
         
         logger.info(f"Cleared all data for user {user_id}")
