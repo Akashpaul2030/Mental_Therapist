@@ -2,7 +2,6 @@
 const clientId = `client_${Math.random().toString(36).substring(2, 12)}`;
 let ws;
 let messageHistory = [];
-let darkModeEnabled = false;
 let isTyping = false;
 let currentSession = {
     id: new Date().toISOString(),
@@ -10,118 +9,236 @@ let currentSession = {
 };
 
 // DOM Elements
-const messageInput = document.getElementById('messageInput');
-const sendButton = document.getElementById('sendButton');
-const messagesContainer = document.getElementById('messages');
-const welcomeScreen = document.getElementById('welcomeScreen');
-const messagesContainerParent = document.querySelector('.messages-container');
-const crisisAlert = document.getElementById('crisisAlert');
-const clearHistoryButton = document.getElementById('clearHistoryButton');
-const newChatButton = document.getElementById('newChatButton');
-const promptButtons = document.querySelectorAll('.prompt-btn');
-const chatHistoryList = document.getElementById('chatHistoryList');
-const themeSelector = document.getElementById('themeSelector');
+let messageInput, sendButton, messagesContainer, welcomeScreen, messagesContainerParent;
+let crisisAlert, clearHistoryButton, newChatButton, promptButtons, chatHistoryList;
+let themeSelector, themeToggleButton, settingsButton;
+
+// Initialize DOM elements
+function initDOMElements() {
+    messageInput = document.getElementById('messageInput');
+    sendButton = document.getElementById('sendButton');
+    messagesContainer = document.getElementById('messages');
+    welcomeScreen = document.getElementById('welcomeScreen');
+    messagesContainerParent = document.querySelector('.messages-container');
+    crisisAlert = document.getElementById('crisisAlert');
+    clearHistoryButton = document.getElementById('clearHistoryButton');
+    newChatButton = document.getElementById('newChatButton');
+    promptButtons = document.querySelectorAll('.prompt-btn');
+    chatHistoryList = document.getElementById('chatHistoryList');
+    themeSelector = document.getElementById('themeSelector');
+    themeToggleButton = document.getElementById('themeToggleButton');
+    settingsButton = document.getElementById('settingsButton');
+}
+
+// Theme System
+function applyTheme(theme) {
+    const body = document.body;
+    
+    if (theme === 'dark') {
+        body.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark');
+    } else if (theme === 'light') {
+        body.classList.remove('dark-theme');
+        localStorage.setItem('theme', 'light');
+    } else {
+        localStorage.removeItem('theme');
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            body.classList.add('dark-theme');
+        } else {
+            body.classList.remove('dark-theme');
+        }
+    }
+    
+    updateThemeButton();
+    updateThemeSelector();
+}
+
+function toggleTheme() {
+    const body = document.body;
+    const isDark = body.classList.contains('dark-theme');
+    
+    if (isDark) {
+        body.classList.remove('dark-theme');
+        localStorage.setItem('theme', 'light');
+    } else {
+        body.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark');
+    }
+    
+    updateThemeButton();
+    updateThemeSelector();
+}
+
+function updateThemeButton() {
+    const button = document.getElementById('themeToggleButton');
+    if (button) {
+        const icon = button.querySelector('i');
+        const text = button.querySelector('span');
+        const isDark = document.body.classList.contains('dark-theme');
+        
+        if (icon && text) {
+            if (isDark) {
+                icon.className = 'fa-solid fa-sun';
+                text.textContent = 'Light Mode';
+            } else {
+                icon.className = 'fa-solid fa-moon';
+                text.textContent = 'Dark Mode';
+            }
+        }
+    }
+}
+
+function updateThemeSelector() {
+    const selector = document.getElementById('themeSelector');
+    if (selector) {
+        const savedTheme = localStorage.getItem('theme');
+        selector.value = savedTheme || 'system';
+    }
+}
+
+function setupThemeButton() {
+    const themeBtn = document.getElementById('themeToggleButton');
+    if (themeBtn) {
+        // Remove existing listeners by cloning
+        const newBtn = themeBtn.cloneNode(true);
+        themeBtn.parentNode.replaceChild(newBtn, themeBtn);
+        
+        // Add reliable event listener
+        newBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleTheme();
+        });
+    }
+}
+
+function initThemeSystem() {
+    // Apply saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        applyTheme(savedTheme);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark-theme');
+    }
+    
+    // Setup theme toggle button
+    setupThemeButton();
+    
+    // Setup settings button
+    const settingsBtn = document.getElementById('settingsButton');
+    if (settingsBtn) {
+        settingsBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const modal = document.getElementById('settingsModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+            }
+        });
+    }
+    
+    // Setup theme selector
+    const themeSelect = document.getElementById('themeSelector');
+    if (themeSelect) {
+        themeSelect.addEventListener('change', function() {
+            applyTheme(this.value);
+        });
+    }
+    
+    // Setup modal close buttons
+    document.querySelectorAll('.close-modal').forEach(button => {
+        const modal = button.closest('.modal');
+        if (modal) {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.classList.add('hidden');
+            });
+        }
+    });
+    
+    // Listen for system theme changes
+    if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                if (e.matches) {
+                    document.body.classList.add('dark-theme');
+                } else {
+                    document.body.classList.remove('dark-theme');
+                }
+                updateThemeButton();
+            }
+        });
+    }
+    
+    updateThemeButton();
+    updateThemeSelector();
+}
 
 // Initialize the application
 function initApp() {
-    // Check for dark mode preference
-    checkDarkModePreference();
+    initDOMElements();
+    initThemeSystem();
     
-    // Get or create a session ID
+    // Get or create session ID
     let sessionId = localStorage.getItem('currentSessionId');
     if (!sessionId) {
         sessionId = `user_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
         localStorage.setItem('currentSessionId', sessionId);
     }
     
-    // Set current session
     currentSession = {
         id: sessionId,
         title: "Current Session"
     };
     
-    // Connect to WebSocket
     connectWebSocket(sessionId);
-    
-    // Load conversation list
     loadConversationList();
-    
-    // Setup event listeners
     setupEventListeners();
-    
-    // Auto-resize textarea
     setupTextareaAutoResize();
-}
-
-// Check system dark mode preference
-function checkDarkModePreference() {
-    const savedTheme = localStorage.getItem('theme');
-    
-    if (savedTheme === 'dark') {
-        enableDarkMode();
-    } else if (savedTheme === 'light') {
-        disableDarkMode();
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        enableDarkMode();
-    }
-    
-    // Update theme selector if it exists
-    if (themeSelector) {
-        themeSelector.value = savedTheme || 'system';
-    }
-}
-
-// Enable dark mode
-function enableDarkMode() {
-    document.body.classList.add('dark-theme');
-    darkModeEnabled = true;
-}
-
-// Disable dark mode
-function disableDarkMode() {
-    document.body.classList.remove('dark-theme');
-    darkModeEnabled = false;
 }
 
 // Setup event listeners
 function setupEventListeners() {
-    // Send button click
-    sendButton.addEventListener('click', sendMessage);
+    if (sendButton) {
+        sendButton.addEventListener('click', sendMessage);
+    }
     
-    // Input keypress (Enter to send)
-    messageInput.addEventListener('input', function() {
-        sendButton.disabled = messageInput.value.trim() === '';
-        
-        // Auto-resize as you type
-        this.style.height = 'auto';
-        const newHeight = Math.min(this.scrollHeight, 200);
-        this.style.height = newHeight + 'px';
-    });
-    
-    messageInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage();
-        }
-    });
-    
-    // Clear history button
-    clearHistoryButton.addEventListener('click', clearChatHistory);
-    
-    // New chat button
-    newChatButton.addEventListener('click', startNewChat);
-    
-    // Prompt buttons
-    promptButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const promptText = this.textContent;
-            messageInput.value = promptText;
-            messageInput.dispatchEvent(new Event('input'));
-            sendMessage();
+    if (messageInput) {
+        messageInput.addEventListener('input', function() {
+            sendButton.disabled = messageInput.value.trim() === '';
+            this.style.height = 'auto';
+            const newHeight = Math.min(this.scrollHeight, 200);
+            this.style.height = newHeight + 'px';
         });
-    });
+        
+        messageInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    }
     
-    // Close crisis alert
+    if (clearHistoryButton) {
+        clearHistoryButton.addEventListener('click', clearChatHistory);
+    }
+    
+    if (newChatButton) {
+        newChatButton.addEventListener('click', startNewChat);
+    }
+    
+    if (promptButtons) {
+        promptButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const promptText = this.textContent;
+                if (messageInput) {
+                    messageInput.value = promptText;
+                    messageInput.dispatchEvent(new Event('input'));
+                    sendMessage();
+                }
+            });
+        });
+    }
+    
     if (crisisAlert) {
         const closeBtn = crisisAlert.querySelector('.close-alert');
         if (closeBtn) {
@@ -130,56 +247,16 @@ function setupEventListeners() {
             });
         }
     }
-    
-    // Theme selector
-    if (themeSelector) {
-        themeSelector.addEventListener('change', function() {
-            const selectedTheme = this.value;
-            
-            if (selectedTheme === 'dark') {
-                enableDarkMode();
-                localStorage.setItem('theme', 'dark');
-            } else if (selectedTheme === 'light') {
-                disableDarkMode();
-                localStorage.setItem('theme', 'light');
-            } else {
-                // System preference
-                localStorage.removeItem('theme');
-                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    enableDarkMode();
-                } else {
-                    disableDarkMode();
-                }
-            }
-        });
-    }
-    
-    // Modal controls
-    document.querySelectorAll('.close-modal').forEach(button => {
-        const modal = button.closest('.modal');
-        button.addEventListener('click', () => {
-            modal.classList.add('hidden');
-        });
-    });
-    
-    // Settings button (if exists)
-    const settingsButton = document.querySelector('.settings-btn');
-    const settingsModal = document.getElementById('settingsModal');
-    
-    if (settingsButton && settingsModal) {
-        settingsButton.addEventListener('click', () => {
-            settingsModal.classList.remove('hidden');
-        });
-    }
 }
 
-// Setup textarea auto-resize
 function setupTextareaAutoResize() {
-    messageInput.addEventListener('input', function() {
-        this.style.height = 'auto';
-        const newHeight = Math.min(this.scrollHeight, 200);
-        this.style.height = newHeight + 'px';
-    });
+    if (messageInput) {
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            const newHeight = Math.min(this.scrollHeight, 200);
+            this.style.height = newHeight + 'px';
+        });
+    }
 }
 
 // Load all conversations
@@ -189,34 +266,31 @@ async function loadConversationList() {
         if (response.ok) {
             const conversations = await response.json();
             
-            // Clear existing list
-            chatHistoryList.innerHTML = '';
-            
-            // Add current session first
-            const currentLi = document.createElement('li');
-            currentLi.classList.add('active');
-            currentLi.setAttribute('data-id', currentSession.id);
-            currentLi.innerHTML = `
-                <i class="fa-regular fa-comment-dots"></i>
-                <span>${currentSession.title}</span>
-            `;
-            chatHistoryList.appendChild(currentLi);
-            
-            // Add past conversations
-            for (const [userId, convData] of Object.entries(conversations)) {
-                if (userId === currentSession.id) continue; // Skip current session
+            if (chatHistoryList) {
+                chatHistoryList.innerHTML = '';
                 
-                const li = document.createElement('li');
-                li.setAttribute('data-id', userId);
-                li.innerHTML = `
+                const currentLi = document.createElement('li');
+                currentLi.classList.add('active');
+                currentLi.setAttribute('data-id', currentSession.id);
+                currentLi.innerHTML = `
                     <i class="fa-regular fa-comment-dots"></i>
-                    <span>${convData.title}</span>
+                    <span>${currentSession.title}</span>
                 `;
+                chatHistoryList.appendChild(currentLi);
                 
-                // Add click event to load this conversation
-                li.addEventListener('click', () => loadConversation(userId));
-                
-                chatHistoryList.appendChild(li);
+                for (const [userId, convData] of Object.entries(conversations)) {
+                    if (userId === currentSession.id) continue;
+                    
+                    const li = document.createElement('li');
+                    li.setAttribute('data-id', userId);
+                    li.innerHTML = `
+                        <i class="fa-regular fa-comment-dots"></i>
+                        <span>${convData.title}</span>
+                    `;
+                    
+                    li.addEventListener('click', () => loadConversation(userId));
+                    chatHistoryList.appendChild(li);
+                }
             }
         }
     } catch (error) {
@@ -232,17 +306,19 @@ async function loadConversation(userId) {
             const data = await response.json();
             const messages = data.messages;
             
-            // Clear current messages
-            messagesContainer.innerHTML = '';
+            if (messagesContainer) {
+                messagesContainer.innerHTML = '';
+            }
             
-            // Hide welcome screen
-            welcomeScreen.classList.add('hidden');
-            messagesContainerParent.style.display = 'block';
+            if (welcomeScreen) {
+                welcomeScreen.classList.add('hidden');
+            }
+            if (messagesContainerParent) {
+                messagesContainerParent.style.display = 'block';
+            }
             
-            // Reset message history
             messageHistory = [];
             
-            // Display messages
             for (const msg of messages) {
                 if (msg.role === 'user') {
                     addUserMessage(msg.content);
@@ -250,15 +326,13 @@ async function loadConversation(userId) {
                     addBotMessage(msg.content);
                 }
                 
-                // Add to message history
                 messageHistory.push({
                     role: msg.role,
                     content: msg.content,
-                    timestamp: Date.now() // Approximate timestamp
+                    timestamp: Date.now()
                 });
             }
             
-            // Update current session
             currentSession = {
                 id: userId,
                 title: messages.length > 0 && messages[0].role === 'user' 
@@ -266,7 +340,6 @@ async function loadConversation(userId) {
                     : "Loaded Conversation"
             };
             
-            // Update sidebar active item
             document.querySelectorAll('.chat-history li').forEach(li => {
                 li.classList.remove('active');
                 if (li.getAttribute('data-id') === userId) {
@@ -274,13 +347,11 @@ async function loadConversation(userId) {
                 }
             });
             
-            // Connect websocket with this user ID
             if (ws) {
                 ws.close();
             }
             connectWebSocket(userId);
             
-            // Scroll to bottom
             scrollToBottom();
         }
     } catch (error) {
@@ -288,7 +359,6 @@ async function loadConversation(userId) {
     }
 }
 
-// Helper to create truncated title
 function truncateTitle(message) {
     const words = message.split(' ');
     if (words.length > 3) {
@@ -308,31 +378,30 @@ async function startNewChat() {
             const data = await response.json();
             const newUserId = data.user_id;
             
-            // Clear message container
-            messagesContainer.innerHTML = '';
+            if (messagesContainer) {
+                messagesContainer.innerHTML = '';
+            }
             
-            // Reset message history
             messageHistory = [];
             
-            // Hide crisis alert if visible
             if (crisisAlert) {
                 crisisAlert.classList.add('hidden');
             }
             
-            // Show welcome screen
-            welcomeScreen.classList.remove('hidden');
-            messagesContainerParent.style.display = 'none';
+            if (welcomeScreen) {
+                welcomeScreen.classList.remove('hidden');
+            }
+            if (messagesContainerParent) {
+                messagesContainerParent.style.display = 'none';
+            }
             
-            // Set current session
             currentSession = {
                 id: newUserId,
                 title: "New Conversation"
             };
             
-            // Update sidebar
             loadConversationList();
             
-            // Reconnect WebSocket with new user ID
             if (ws) {
                 ws.close();
             }
@@ -343,20 +412,16 @@ async function startNewChat() {
     }
 }
 
-// Update the websocket connection function to use the user ID
+// WebSocket connection
 function connectWebSocket(userId = null) {
-    // Use the provided user ID or the current session ID
     const socketUserId = userId || currentSession.id;
-    
-    // Get the current host
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const host = window.location.host;
     
     ws = new WebSocket(`${protocol}//${host}/ws/${socketUserId}`);
     
     ws.onopen = () => {
-        console.log('Connected to WebSocket');
-        // We'll let the server send the welcome message
+        // Connection established
     };
     
     ws.onmessage = (event) => {
@@ -364,37 +429,30 @@ function connectWebSocket(userId = null) {
             const data = JSON.parse(event.data);
             
             if (data.type === 'message') {
-                // Hide welcome screen if visible
                 hideWelcomeScreen();
-                
-                // Stop typing indicator
                 stopTypingIndicator();
-                
-                // Add message to DOM
                 addBotMessage(data.content);
                 
-                // Store in message history
                 messageHistory.push({
                     role: 'bot',
                     content: data.content,
                     timestamp: data.timestamp || Date.now()
                 });
                 
-                // Check for crisis keywords - ONLY in the bot's response about serious topics
+                // Check for crisis keywords
                 const seriousCrisisKeywords = ['suicide', 'kill myself', 'end my life', 'harming yourself', 'self-harm'];
                 const moderateCrisisKeywords = ['crisis', 'emergency', 'urgent help'];
 
-                // Only show crisis alert for serious keywords or multiple moderate keywords
                 const content = data.content.toLowerCase();
                 const hasSeriousCrisisKeyword = seriousCrisisKeywords.some(keyword => content.includes(keyword));
                 const moderateKeywordsFound = moderateCrisisKeywords.filter(keyword => content.includes(keyword));
 
-                // Show the alert only if serious keywords are found or multiple moderate keywords
                 if (hasSeriousCrisisKeyword || moderateKeywordsFound.length >= 2) {
-                    crisisAlert.classList.remove('hidden');
+                    if (crisisAlert) {
+                        crisisAlert.classList.remove('hidden');
+                    }
                 }
                 
-                // Update chat title if this is the first exchange
                 if (messageHistory.length === 2) {
                     updateChatTitle(messageHistory[0].content);
                 }
@@ -407,9 +465,7 @@ function connectWebSocket(userId = null) {
     };
     
     ws.onclose = () => {
-        console.log('Disconnected from WebSocket');
         addSystemMessage('Connection lost. Trying to reconnect...');
-        // Try to reconnect after 3 seconds
         setTimeout(() => connectWebSocket(socketUserId), 3000);
     };
     
@@ -421,50 +477,45 @@ function connectWebSocket(userId = null) {
 
 // Send a message
 function sendMessage() {
+    if (!messageInput || !sendButton || !ws) return;
+    
     const message = messageInput.value.trim();
-    if (message && ws && ws.readyState === WebSocket.OPEN && !isTyping) {
-        // Hide welcome screen if visible
+    if (message && ws.readyState === WebSocket.OPEN && !isTyping) {
         hideWelcomeScreen();
-        
-        // Add user message to UI
         addUserMessage(message);
         
-        // Store in message history
         messageHistory.push({
             role: 'user',
             content: message,
             timestamp: Date.now()
         });
         
-        // Show typing indicator
         startTypingIndicator();
         
-        // Send message to server
         ws.send(JSON.stringify({
             type: 'message',
             text: message
         }));
         
-        // Clear input
         messageInput.value = '';
         messageInput.style.height = 'auto';
         sendButton.disabled = true;
-        
-        // Focus back on input
         messageInput.focus();
     }
 }
 
-// Hide welcome screen
 function hideWelcomeScreen() {
     if (welcomeScreen && !welcomeScreen.classList.contains('hidden')) {
         welcomeScreen.classList.add('hidden');
-        messagesContainerParent.style.display = 'block';
+        if (messagesContainerParent) {
+            messagesContainerParent.style.display = 'block';
+        }
     }
 }
 
-// Start typing indicator
 function startTypingIndicator() {
+    if (!messagesContainer) return;
+    
     isTyping = true;
     
     const typingIndicator = document.createElement('div');
@@ -488,7 +539,6 @@ function startTypingIndicator() {
     scrollToBottom();
 }
 
-// Stop typing indicator
 function stopTypingIndicator() {
     isTyping = false;
     const typingIndicator = document.getElementById('typingIndicator');
@@ -497,12 +547,12 @@ function stopTypingIndicator() {
     }
 }
 
-// Add user message to UI
 function addUserMessage(content) {
+    if (!messagesContainer) return;
+    
     const messageRow = document.createElement('div');
     messageRow.classList.add('message-row', 'user');
     
-    // Format message content
     const formattedContent = formatMessageContent(content);
     
     messageRow.innerHTML = `
@@ -519,12 +569,12 @@ function addUserMessage(content) {
     scrollToBottom();
 }
 
-// Add bot message to UI
 function addBotMessage(content) {
+    if (!messagesContainer) return;
+    
     const messageRow = document.createElement('div');
     messageRow.classList.add('message-row');
     
-    // Format message content
     const formattedContent = formatMessageContent(content);
     
     messageRow.innerHTML = `
@@ -542,26 +592,28 @@ function addBotMessage(content) {
     
     messagesContainer.appendChild(messageRow);
     
-    // Add event listener to copy button
     const copyBtn = messageRow.querySelector('.copy-btn');
-    copyBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText(content)
-            .then(() => {
-                copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
-                setTimeout(() => {
-                    copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy';
-                }, 2000);
-            })
-            .catch(err => {
-                console.error('Failed to copy text: ', err);
-            });
-    });
+    if (copyBtn) {
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(content)
+                .then(() => {
+                    copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="fa-regular fa-copy"></i> Copy';
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+        });
+    }
     
     scrollToBottom();
 }
 
-// Add system message to UI
 function addSystemMessage(content) {
+    if (!messagesContainer) return;
+    
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('system-message');
     messageDiv.textContent = content;
@@ -570,56 +622,46 @@ function addSystemMessage(content) {
     scrollToBottom();
 }
 
-// Format message content with simple markdown-like formatting
 function formatMessageContent(content) {
-    // Replace line breaks with <br>
     let formatted = content.replace(/\n/g, '<br>');
-    
-    // Bold text
     formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    
-    // Italic text
     formatted = formatted.replace(/\*(.*?)\*/g, '<em>$1</em>');
-    
-    // Code blocks
     formatted = formatted.replace(/```([\s\S]*?)```/g, '<pre>$1</pre>');
-    
-    // Inline code
     formatted = formatted.replace(/`([^`]+)`/g, '<code>$1</code>');
-    
-    // Simple lists
     formatted = formatted.replace(/^\s*-\s*(.*)/gm, '<ul><li>$1</li></ul>');
     formatted = formatted.replace(/<\/ul>\s*<ul>/g, '');
-    
-    // Numbered lists
     formatted = formatted.replace(/^\s*(\d+)\.\s*(.*)/gm, '<ol><li>$2</li></ol>');
     formatted = formatted.replace(/<\/ol>\s*<ol>/g, '');
     
     return formatted;
 }
 
-// Scroll to bottom of messages
 function scrollToBottom() {
-    messagesContainerParent.scrollTop = messagesContainerParent.scrollHeight;
+    if (messagesContainerParent) {
+        messagesContainerParent.scrollTop = messagesContainerParent.scrollHeight;
+    }
 }
 
-// Clear chat history
 async function clearChatHistory() {
     try {
         const response = await fetch(`/clear_history/${currentSession.id}`, { method: 'POST' });
         if (response.ok) {
-            // Clear UI
-            messagesContainer.innerHTML = '';
-            crisisAlert.classList.add('hidden');
+            if (messagesContainer) {
+                messagesContainer.innerHTML = '';
+            }
+            if (crisisAlert) {
+                crisisAlert.classList.add('hidden');
+            }
             
-            // Clear message history
             messageHistory = [];
             
-            // Show welcome screen again
-            welcomeScreen.classList.remove('hidden');
-            messagesContainerParent.style.display = 'none';
+            if (welcomeScreen) {
+                welcomeScreen.classList.remove('hidden');
+            }
+            if (messagesContainerParent) {
+                messagesContainerParent.style.display = 'none';
+            }
             
-            // Add system message
             addSystemMessage('Conversation history has been cleared.');
         } else {
             addSystemMessage('Failed to clear history. Please try again.');
@@ -630,24 +672,33 @@ async function clearChatHistory() {
     }
 }
 
-// Update the chat title based on first message
 function updateChatTitle(message) {
-    // Create a title from the first few words of the message
     const title = truncateTitle(message);
-    
     currentSession.title = title;
-    loadConversationList(); // Refresh the conversation list with new title
+    loadConversationList();
 }
 
-// Event listener for when DOM is loaded
+// Event listeners
 document.addEventListener('DOMContentLoaded', initApp);
+
+// Additional theme system initialization
+setTimeout(() => {
+    setupThemeButton();
+}, 1000);
 
 // Handle visibility change
 document.addEventListener('visibilitychange', function() {
     if (document.visibilityState === 'visible') {
-        // Check if WebSocket is closed and reconnect if needed
         if (ws && (ws.readyState === WebSocket.CLOSED || ws.readyState === WebSocket.CLOSING)) {
             connectWebSocket(currentSession.id);
         }
+    }
+});
+
+// Keyboard shortcut for theme toggle
+document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.key === 'd') {
+        e.preventDefault();
+        toggleTheme();
     }
 });

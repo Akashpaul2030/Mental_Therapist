@@ -4,7 +4,7 @@
     --primary-light: #9784f2;
     --primary-dark: #6557c3;
     
-    /* Neutrals */
+    /* Light theme colors */
     --bg-color: #f9fafb;
     --surface-color: #ffffff;
     --text-primary: #2d3748;
@@ -36,18 +36,38 @@
     --button-radius: 6px;
 }
 
-/* Dark mode variables */
-.dark-theme {
-    --bg-color: #171923;
-    --surface-color: #1a202c;
-    --text-primary: #f7fafc;
-    --text-secondary: #e2e8f0;
-    --text-tertiary: #a0aec0;
-    --border-color: #2d3748;
+/* Dark theme variables - IMPORTANT: Higher specificity */
+body.dark-theme {
+    --bg-color: #0f1419 !important;
+    --surface-color: #1a1f2e !important;
+    --text-primary: #f7fafc !important;
+    --text-secondary: #e2e8f0 !important;
+    --text-tertiary: #a0aec0 !important;
+    --border-color: #2d3748 !important;
     
-    --crisis-bg: #3b1c1c;
-    --crisis-border: #742a2a;
-    --crisis-text: #fc8181;
+    /* Enhanced dark mode colors */
+    --primary-color: #8b7cf8 !important;
+    --primary-light: #a78bfa !important;
+    --primary-dark: #7c3aed !important;
+    
+    --accent-green: #4ade80 !important;
+    --accent-blue: #60a5fa !important;
+    --accent-purple: #c084fc !important;
+    --accent-red: #f87171 !important;
+    
+    --crisis-bg: #3b1c1c !important;
+    --crisis-border: #742a2a !important;
+    --crisis-text: #fc8181 !important;
+    
+    /* Dark mode shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3) !important;
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3) !important;
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Ensure dark theme transitions work smoothly */
+body.dark-theme * {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 /* CSS Reset */
@@ -64,6 +84,7 @@ body {
     line-height: 1.5;
     height: 100vh;
     overflow: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a {
@@ -96,7 +117,7 @@ button {
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .sidebar-header {
@@ -173,7 +194,7 @@ button {
 }
 
 .chat-history li:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(123, 104, 238, 0.1);
 }
 
 .chat-history li.active {
@@ -197,12 +218,20 @@ button {
     border-radius: var(--button-radius);
     color: var(--text-secondary);
     text-align: left;
-    transition: background-color 0.2s;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s;
     margin-bottom: 12px;
+    cursor: pointer;
 }
 
 .sidebar-btn:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(123, 104, 238, 0.1);
+    color: var(--primary-color);
+    transform: translateX(2px);
+}
+
+.sidebar-btn i {
+    width: 16px;
+    text-align: center;
 }
 
 .user-info {
@@ -290,7 +319,7 @@ button {
     background-color: var(--surface-color);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .feature:hover {
@@ -339,7 +368,7 @@ button {
     border-radius: var(--button-radius);
     color: var(--text-secondary);
     font-size: 14px;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s;
 }
 
 .prompt-btn:hover {
@@ -402,6 +431,7 @@ button {
     padding: 16px;
     background-color: var(--surface-color);
     box-shadow: var(--shadow-sm);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .message-row.user .message-content {
@@ -465,6 +495,7 @@ button {
     padding: 16px 24px;
     border-top: 1px solid var(--border-color);
     background-color: var(--surface-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .input-wrapper {
@@ -594,6 +625,7 @@ textarea::placeholder {
     width: 100%;
     max-width: 500px;
     box-shadow: var(--shadow-lg);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .modal-header {
@@ -733,27 +765,99 @@ input:checked + .toggle-slider:before {
 }
 
 /* Dark Mode Specific Adjustments */
-.dark-theme .feature,
-.dark-theme .prompt-btn,
-.dark-theme .input-wrapper {
-    background-color: #2d3748;
-    border-color: #4a5568;
+body.dark-theme .feature,
+body.dark-theme .prompt-btn {
+    background-color: var(--surface-color) !important;
+    border-color: var(--border-color) !important;
 }
 
-.dark-theme .modal-content {
-    background-color: #1a202c;
+body.dark-theme .feature:hover,
+body.dark-theme .prompt-btn:hover {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    transform: translateY(-2px);
 }
 
-.dark-theme .message-content {
-    background-color: #2d3748;
+body.dark-theme .modal-content {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
 }
 
-.dark-theme .input-container {
-    background-color: #1a202c;
+body.dark-theme .message-content {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
 }
 
-.dark-theme .input-wrapper {
-    background-color: #2d3748;
+body.dark-theme .message-row.user .message-content {
+    background-color: var(--primary-color);
+    border-color: var(--primary-light);
+}
+
+body.dark-theme .input-container {
+    background-color: var(--surface-color);
+    border-top: 1px solid var(--border-color);
+}
+
+body.dark-theme .input-wrapper {
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+}
+
+body.dark-theme .input-wrapper:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(139, 124, 248, 0.1);
+}
+
+body.dark-theme textarea {
+    background-color: transparent;
+    color: var(--text-primary);
+}
+
+body.dark-theme textarea::placeholder {
+    color: var(--text-tertiary);
+}
+
+body.dark-theme .sidebar-btn:hover {
+    background-color: rgba(139, 124, 248, 0.2) !important;
+    color: var(--primary-color) !important;
+}
+
+body.dark-theme .chat-history li:hover {
+    background-color: rgba(139, 124, 248, 0.1) !important;
+}
+
+body.dark-theme .message-text code {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+}
+
+body.dark-theme .message-text pre {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+}
+
+body.dark-theme .system-message {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Ensure immediate theme application */
+body.dark-theme {
+    background-color: var(--bg-color) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Additional dark theme specificity for critical elements */
+body.dark-theme .welcome-screen {
+    background-color: var(--bg-color) !important;
+    color: var(--text-primary) !important;
+}
+
+body.dark-theme .welcome-screen h1 {
+    color: var(--primary-color) !important;
+}
+
+body.dark-theme .welcome-screen p {
+    color: var(--text-secondary) !important;
 }
 
 /* Typing Indicator */
@@ -829,4 +933,46 @@ input:checked + .toggle-slider:before {
     padding-left: 12px;
     color: var(--text-secondary);
     margin: 12px 0;
+}
+
+/* LIGHT THEME ENFORCEMENT */
+body:not(.dark-theme) {
+    --bg-color: #f9fafb !important;
+    --surface-color: #ffffff !important;
+    --text-primary: #2d3748 !important;
+    --text-secondary: #4a5568 !important;
+    --text-tertiary: #718096 !important;
+    --border-color: #e2e8f0 !important;
+}
+
+/* Force light theme styles when dark-theme class is removed */
+body:not(.dark-theme) .sidebar {
+    background-color: #ffffff !important;
+    border-right: 1px solid #e2e8f0 !important;
+}
+
+body:not(.dark-theme) .main-content {
+    background-color: #f9fafb !important;
+}
+
+body:not(.dark-theme) .feature,
+body:not(.dark-theme) .prompt-btn {
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
+    color: #2d3748 !important;
+}
+
+body:not(.dark-theme) .message-content {
+    background-color: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+}
+
+body:not(.dark-theme) .input-container {
+    background-color: #ffffff !important;
+    border-top: 1px solid #e2e8f0 !important;
+}
+
+body:not(.dark-theme) .input-wrapper {
+    background-color: #f9fafb !important;
+    border: 1px solid #e2e8f0 !important;
 }

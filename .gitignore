@@ -45,3 +45,10 @@ Thumbs.db
 .chroma/
 *.log
 logs/
+
+# Chat memory and conversation data
+chat_memory.json
+conversations.json
+user_conversations.json
+memory_*.json
+*_memory.json
