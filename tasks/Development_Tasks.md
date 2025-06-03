@@ -48,13 +48,13 @@
 - [x] **Task 7.2**: Develop unit tests for crisis detection module.
 - [x] **Task 7.3**: Develop unit tests for ethical guideline adherence.
 - [x] **Task 7.4**: Develop unit tests for memory management.
-- [ ] **Task 7.5**: Develop integration tests for API endpoints.
-- [ ] **Task 7.6**: Develop frontend tests for UI components and interactivity.
+- [x] **Task 7.5**: Develop integration tests for API endpoints.
+- [x] **Task 7.6**: Develop frontend tests for UI components and interactivity.
 - [x] **Task 7.7**: Conduct end-to-end testing of the complete application flow.
 
 ### Non-Functional Requirements Implementation
 - [x] **Task 8.1**: Optimize for response generation speed and semantic search efficiency.
-- [ ] **Task 8.2**: Implement security measures: ensure no permanent storage of sensitive conversations beyond session memory.
+- [x] **Task 8.2**: Implement security measures: ensure no permanent storage of sensitive conversations beyond session memory.
 - [x] **Task 8.3**: Ensure Python 3.10+ compatibility.
 
 ## Phase 4: Documentation & PRD Completion

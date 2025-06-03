@@ -17,8 +17,8 @@ from typing import List, Dict, Any, Optional
 from dotenv import load_dotenv
 
 # Updated imports to use langchain-community and newer LangChain patterns
-from langchain_community.chat_models import ChatOpenAI
-from langchain.prompts import PromptTemplate
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import PromptTemplate
 from langchain.schema import Document
 
 # Assuming KnowledgeBase is in src.knowledge_base

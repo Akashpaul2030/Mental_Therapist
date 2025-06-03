@@ -30,9 +30,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Create data directory if it doesn't exist
-os.makedirs('data', exist_ok=True)
-
 class MentalHealthMemoryManager:
     """Class to manage mental health chatbot memory using LangChain's chat history."""
     
@@ -47,44 +44,7 @@ class MentalHealthMemoryManager:
         self.conversations: Dict[str, ConversationMemory] = defaultdict(ConversationMemory)
         self.user_details: Dict[str, Dict[str, Any]] = defaultdict(dict)
         self.max_token_limit = max_token_limit
-        # self.memory_file_path = memory_file_path # Removed
-        # self.load_memory_from_file() # Removed
         logger.info("MentalHealthMemoryManager initialized for in-memory session storage.")
-
-    def _save_memory_to_file(self):
-        """
-        This method is now a no-op as conversations are not persisted to disk.
-        """
-        pass # No operation
-
-    # def load_memory_from_file(self):
-    #     """
-    #     Loads memory state from the JSON file if it exists.
-    #     This method is no longer used as memory is not persisted.
-    #     """
-    #     if os.path.exists(self.memory_file_path):
-    #         try:
-    #             with open(self.memory_file_path, 'r') as f:
-    #                 data = json.load(f)
-    #                 for user_id, conv_data in data.get("conversations", {}).items():
-    #                     # Reconstruct ConversationMemory instances
-    #                     # This requires ConversationMemory to be adaptable or have a from_dict method
-    #                     temp_store = InMemoryStore()
-    #                     for msg_data in conv_data.get("messages", []):
-    #                         if msg_data["type"] == "human":
-    #                             temp_store.add_message(HumanMessage(content=msg_data["content"]))
-    #                         elif msg_data["type"] == "ai":
-    #                             temp_store.add_message(AIMessage(content=msg_data["content"]))
-    #                         elif msg_data["type"] == "system":
-    #                             temp_store.add_message(SystemMessage(content=msg_data["content"]))
-    #                     self.conversations[user_id].store = temp_store.messages # Or however ConversationMemory stores messages
-    #                     self.conversations[user_id].user_id = user_id 
-    #                 self.user_details = defaultdict(dict, data.get("user_details", {}))
-    #             logger.info(f"Memory loaded from {self.memory_file_path}")
-    #         except Exception as e:
-    #             logger.error(f"Error loading memory from {self.memory_file_path}: {e}")
-    #     else:
-    #         logger.info("No memory file found, starting with empty memory.")
 
     def get_history(self, user_id: str) -> ConversationMemory:
         return self.conversations[user_id]
@@ -93,13 +53,11 @@ class MentalHealthMemoryManager:
         history = self.get_history(user_id)
         history.add_user_message(user_id, message_content)
         self._trim_history(user_id)
-        # self._save_memory_to_file() # Removed call
 
     def add_bot_message(self, user_id: str, message_content: str):
         history = self.get_history(user_id)
         history.add_bot_message(user_id, message_content)
         self._trim_history(user_id)
-        # self._save_memory_to_file() # Removed call
 
     def _trim_history(self, user_id: str):
         history: ConversationMemory = self.get_history(user_id) # history is src.memory_store.ConversationMemory
@@ -125,33 +83,68 @@ class MentalHealthMemoryManager:
     def update_user_details(self, user_id: str, details: Dict[str, Any]):
         self.user_details[user_id].update(details)
         logger.info(f"Updated user details for {user_id}: {details}")
-        # self._save_memory_to_file() # Removed call
 
-    def get_user_details(self, user_id: str) -> Optional[Dict[str, Any]]:
-        return self.user_details.get(user_id)
-
-    def get_all_conversations(self) -> Dict[str, Dict[str, Any]]:
-        all_convos = {}
-        for user_id, conv_memory in self.conversations.items(): # conv_memory is src.memory_store.ConversationMemory
-            title = "Conversation" 
-            last_updated_ts = None # Timestamps not available per message in current ConversationMemory
-            message_count = 0
-
-            message_dicts = conv_memory.get_conversation_history(user_id)
-            if message_dicts:
-                message_count = len(message_dicts)
-                first_user_message_content = next((msg_dict.get('content') for msg_dict in message_dicts if msg_dict.get('role') == 'user'), None)
-                if first_user_message_content:
-                    title = (first_user_message_content[:30] + '...') if len(first_user_message_content) > 30 else first_user_message_content
-                
-                # last_msg_obj and timestamp logic removed as dicts don't have additional_kwargs
+    def get_user_details(self, user_id: str) -> Dict:
+        """
+        Get the stored details for a user.
+        
+        Args:
+            user_id: Unique identifier for the user
             
-            all_convos[user_id] = {
-                "title": title,
-                "message_count": message_count,
-                "last_updated": last_updated_ts, # Will be None
+        Returns:
+            Dictionary of user details (never None)
+        """
+        details = self.user_details.get(user_id, {})
+        if details is None: # This check is technically redundant now with defaultdict(dict) and .get(user_id, {}), but harmless
+            return {}
+        return details
+
+    def get_all_conversations(self) -> Dict[str, Dict]:
+        """
+        Get all conversations with basic metadata.
+        
+        Returns:
+            Dictionary mapping user_id to conversation metadata
+        """
+        result = {}
+        
+        for user_id, conv_memory_instance in self.conversations.items(): # Iterate through ConversationMemory instances
+            message_list = conv_memory_instance.get_conversation_history(user_id)
+            
+            # Skip empty conversations
+            if not message_list:
+                continue
+                
+            # Get first message for title
+            first_message_content = None
+            for msg_dict in message_list:
+                if msg_dict.get('role') == 'user':
+                    first_message_content = msg_dict.get('content')
+                    break
+            
+            # Create title from first message
+            title = "New Conversation"
+            if first_message_content:
+                words = first_message_content.split()
+                if len(words) > 3:
+                    title = " ".join(words[:3]) + "..."
+                else:
+                    title = first_message_content
+            
+            # Count messages
+            message_count = len(message_list)
+            
+            # Get timestamp (use current time as approximation)
+            # More accurate timestamping would require storing it with messages
+            timestamp = datetime.datetime.now().isoformat()
+            
+            result[user_id] = {
+                'title': title,
+                'message_count': message_count,
+                'last_updated': timestamp
             }
-        return all_convos
+        
+        return result
 
     def get_conversation_messages(self, user_id: str) -> List[Dict[str, Any]]:
         history: ConversationMemory = self.get_history(user_id) # history is src.memory_store.ConversationMemory
@@ -167,7 +160,6 @@ class MentalHealthMemoryManager:
         if user_id in self.user_details:
             del self.user_details[user_id]
             logger.info(f"Cleared user details for {user_id}.")
-        # self._save_memory_to_file() # Removed call
 
     def get_formatted_history(self, user_id: str) -> str:
         """

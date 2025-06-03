@@ -114,12 +114,6 @@ class MentalHealthChatbot:
         if not self.conversation_started:
             self.conversation_started = True
         
-        # Extract user details from message
-        details = self.memory.extract_details_from_message(message)
-        if details:
-            self.memory.update_user_details(user_id, details)
-            logger.info(f"Extracted user details: {details}")
-        
         # Add user message to conversation history
         self.memory.add_user_message(user_id, message)
         
@@ -188,7 +182,8 @@ class MentalHealthChatbot:
             return response
         except Exception as e:
             logger.error(f"Error processing message: {e}")
-            error_msg = "I'm sorry, I encountered an error while processing your message. Please try again or contact support if the issue persists."
+            # Return a user-friendly error message instead of technical error
+            error_msg = "I'm sorry, I'm having trouble processing your message right now. Please try rephrasing your question or try again in a moment."
             self.memory.add_bot_message(user_id, error_msg)
             return error_msg
     
