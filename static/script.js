@@ -274,17 +274,22 @@
                 if (chatHistoryList) {
                     chatHistoryList.innerHTML = '';
                     
-                    const currentLi = document.createElement('li');
-                    currentLi.classList.add('active');
-                    currentLi.setAttribute('data-id', currentSession.id);
-                    currentLi.innerHTML = `
-                        <i class="fa-regular fa-comment-dots"></i>
-                        <span>${currentSession.title}</span>
-                    `;
-                    chatHistoryList.appendChild(currentLi);
+                    // Add current session first (if it exists)
+                    if (currentSession && currentSession.id) {
+                        const currentLi = document.createElement('li');
+                        currentLi.classList.add('active');
+                        currentLi.setAttribute('data-id', currentSession.id);
+                        currentLi.innerHTML = `
+                            <i class="fa-regular fa-comment-dots"></i>
+                            <span>${currentSession.title}</span>
+                        `;
+                        chatHistoryList.appendChild(currentLi);
+                    }
                     
+                    // Add all other conversations (excluding current session to avoid duplicates)
                     for (const [userId, convData] of Object.entries(conversations)) {
-                        if (userId === currentSession.id) continue;
+                        // Skip if this is the current session (already added above)
+                        if (currentSession && userId === currentSession.id) continue;
                         
                         const li = document.createElement('li');
                         li.setAttribute('data-id', userId);
@@ -383,6 +388,7 @@
                 const data = await response.json();
                 const newUserId = data.user_id;
                 
+                // Clear current messages
                 if (messagesContainer) {
                     messagesContainer.innerHTML = '';
                 }
@@ -393,6 +399,7 @@
                     crisisAlert.classList.add('hidden');
                 }
                 
+                // Show welcome screen for new conversation
                 if (welcomeScreen) {
                     welcomeScreen.classList.remove('hidden');
                 }
@@ -400,13 +407,19 @@
                     messagesContainerParent.style.display = 'none';
                 }
                 
+                // Update current session
                 currentSession = {
                     id: newUserId,
                     title: "New Conversation"
                 };
                 
-                loadConversationList();
+                // Update localStorage with new session
+                localStorage.setItem('currentSessionId', newUserId);
                 
+                // Reload conversation list to include the new conversation
+                await loadConversationList();
+                
+                // Close existing WebSocket and connect to new one
                 if (ws) {
                     ws.close();
                 }
@@ -688,7 +701,17 @@
     function updateChatTitle(message) {
         const title = truncateTitle(message);
         currentSession.title = title;
-        loadConversationList();
+        
+        // Update the title in the conversation list immediately
+        const currentSessionElement = document.querySelector(`li[data-id="${currentSession.id}"]`);
+        if (currentSessionElement) {
+            const titleSpan = currentSessionElement.querySelector('span');
+            if (titleSpan) {
+                titleSpan.textContent = title;
+            }
+        }
+        
+        // Don't reload the entire list, just update the current session title
     }
 
     // Call initApp when the DOM is ready

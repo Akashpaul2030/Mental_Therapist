@@ -108,34 +108,41 @@ class MentalHealthMemoryManager:
         """
         result = {}
         
-        for user_id, conv_memory_instance in self.conversations.items(): # Iterate through ConversationMemory instances
+        # Corrected: Iterate through self.conversations which stores ConversationMemory instances
+        for user_id, conv_memory_instance in self.conversations.items(): 
+            # Get messages from the ConversationMemory instance for this user_id
             message_list = conv_memory_instance.get_conversation_history(user_id)
-            
-            # Skip empty conversations
+
             if not message_list:
+                # For empty conversations (newly created), still include them
+                result[user_id] = {
+                    'title': "New Conversation",
+                    'message_count': 0,
+                    'last_updated': datetime.datetime.now().isoformat()
+                }
                 continue
-                
-            # Get first message for title
-            first_message_content = None
+            
+            # Get first user message for title (skip bot messages)
+            first_user_message = None
+            # message_list is already a list of dicts like {"role": ..., "content": ...}
             for msg_dict in message_list:
-                if msg_dict.get('role') == 'user':
-                    first_message_content = msg_dict.get('content')
+                if msg_dict.get('role') == 'user': # Check role from dict
+                    first_user_message = msg_dict.get('content')
                     break
             
-            # Create title from first message
+            # Create title from first user message
             title = "New Conversation"
-            if first_message_content:
-                words = first_message_content.split()
+            if first_user_message:
+                words = first_user_message.split()
                 if len(words) > 3:
                     title = " ".join(words[:3]) + "..."
                 else:
-                    title = first_message_content
+                    title = first_user_message
             
             # Count messages
             message_count = len(message_list)
             
             # Get timestamp (use current time as approximation)
-            # More accurate timestamping would require storing it with messages
             timestamp = datetime.datetime.now().isoformat()
             
             result[user_id] = {
@@ -225,3 +232,16 @@ class MentalHealthMemoryManager:
             "history": history,
             "user_details": context
         }
+
+    def update_conversation_title(self, user_id: str, title: str):
+        """
+        Update the conversation title for a user.
+        
+        Args:
+            user_id: Unique identifier for the user
+            title: New title for the conversation
+        """
+        # This will be handled by get_all_conversations() dynamically
+        # but we can save it to file to ensure persistence
+        # self.save_memory_to_file() # This method was removed.
+        logger.info(f"Updated conversation title for user {user_id}: {title} (Note: Title is dynamically generated, this call is a placeholder or needs rethinking for persistence if required outside session memory)")
