@@ -16,20 +16,26 @@ lib64/
 parts/
 sdist/
 var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # Virtual Environment
 venv/
 ENV/
 .env
+VENV/
 
 # IDE
 .idea/
 .vscode/
 *.swp
 *.swo
+*~
 
 # OS
 .DS_Store
@@ -40,15 +46,34 @@ ENV/
 ehthumbs.db
 Thumbs.db
 
+# Testing
+htmlcov/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+.tox/
+
 # Project specific
 .vector_store/
 .chroma/
 *.log
 logs/
+docs/_build/
+*.pot
+*.mo
 
 # Chat memory and conversation data
+data/chat_memory.json
+data/user_details_*.json
 chat_memory.json
 conversations.json
 user_conversations.json
 memory_*.json
 *_memory.json
+
+# Node.js / JavaScript
+node_modules/
+
+# Temporary or generated files
+*.mdc

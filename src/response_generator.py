@@ -21,6 +21,9 @@ from langchain_community.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.schema import Document
 
+# Assuming KnowledgeBase is in src.knowledge_base
+from src.knowledge_base import KnowledgeBase 
+
 # Load environment variables
 load_dotenv()
 
@@ -66,8 +69,9 @@ please consult with a healthcare provider who can give you proper evaluation and
 class ResponseGenerator:
     """Class to generate empathetic and factually accurate responses."""
     
-    def __init__(self):
+    def __init__(self, knowledge_base: KnowledgeBase):
         """Initialize the response generator."""
+        self.knowledge_base = knowledge_base # Store the knowledge_base instance
         self.llm = ChatOpenAI(
             model=os.getenv('LLM_MODEL', 'gpt-4'),
             temperature=float(os.getenv('TEMPERATURE', 0.3))

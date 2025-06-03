@@ -13,6 +13,14 @@
       {
         "role": "assistant",
         "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "user",
+        "content": "Anxiety management techniques"
+      },
+      {
+        "role": "assistant",
+        "content": "Hi feel, thank you for reaching out again. I understand that managing anxiety can feel really challenging, and it\u2019s okay to seek out different ways to find some relief. There are several techniques you might find helpful, and you can try them gently to see what feels right for you.\n\nOne approach is the **5-4-3-2-1 grounding technique**, which can help bring your focus back to the present moment when anxiety feels overwhelming. It involves noticing 5 things you can see, 4 things you can touch, 3 things you can hear, 2 things you can smell, and 1 thing you can taste. This can be a simple way to interrupt anxious thoughts and reconnect with your surroundings.\n\nAnother option is **progressive muscle relaxation**, where you slowly tense and then relax different muscle groups in your body. This practice can help you become more aware of physical tension and promote a sense of calm. Doing this regularly might make a difference over time.\n\nIf you find yourself avoiding certain anxiety-provoking situations, **graded exposure** could be useful. This involves gradually facing those situations starting with the least anxiety-inducing and working your way up, while using relaxation techniques to stay grounded.\n\nYou might also consider **mindfulness practices** like mindful breathing or body scan meditation, which encourage gentle attention to your breath or bodily sensations without judgment. These can be practiced for just a few minutes daily and may help ease anxious feelings.\n\nRemember, feel, these are just some options to explore, and it\u2019s perfectly okay to try what feels manageable for you. If your anxiety feels persistent or interferes with your daily life, reaching out to a mental health professional can provide more personalized support.\n\nI\u2019m here to listen and support you as you navigate this. Would you like me to guide you through any of these techniques right now?\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
       }
     ],
     "user_1747839091_d45bd39a": [
@@ -42,18 +50,6 @@
       {
         "role": "assistant",
         "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
-      },
-      {
-        "role": "assistant",
-        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
-      },
-      {
-        "role": "user",
-        "content": "Anxiety management techniques"
-      },
-      {
-        "role": "assistant",
-        "content": "\nI'm sorry you're going through this. While I don't have specific advice for your situation, \nI strongly recommend reaching out to a licensed mental health professional who can provide \npersonalized support. Would you like me to provide information on how to find mental health resources?\n\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
       }
     ],
     "user_1747854021_eb361d72": [
@@ -92,6 +88,594 @@
       {
         "role": "assistant",
         "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748237688_56e29d80": [],
+    "user_1748238279_4a13b832": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748759636_6d39f001": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748759636_19a2e5ff": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748759637_ca50b96e": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748759637_061ce006": [],
+    "ws_new_client_851961856ae541979ecab2d51f58cf4e": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748759637_3c3ab285": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "ws_chat_client_0b1a433b36db465db5e3126494f2dd17": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "ws_clear_cmd_client_05f860f8cf52480aa3d77f294289b72b": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "47978ce4-f471-41cd-8e6c-f0e60e1a33a0": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "user",
+        "content": "What are some ways to manage anxiety?"
+      },
+      {
+        "role": "assistant",
+        "content": "I understand that managing anxiety can feel challenging, and it\u2019s completely okay to feel this way. There are several strategies that many people find helpful, and you might consider trying some of these to see what feels right for you.\n\nOne approach is **graded exposure**, where you gradually face anxiety-provoking situations starting with those that cause mild discomfort. This can help build confidence over time while using relaxation techniques to stay calm.\n\nYou might also find **mindfulness practices** soothing, such as mindful breathing or body scan meditation. These involve focusing your attention gently on your breath or bodily sensations, which can help bring you back to the present moment and reduce anxious thoughts.\n\nWhen anxiety feels overwhelming, grounding techniques like the **5-4-3-2-1 exercise** can be useful. This involves noticing five things you can see, four you can touch, three you can hear, two you can smell, and one you can taste, helping to shift your focus away from distressing feelings.\n\nAdditionally, **progressive muscle relaxation**\u2014tensing and then relaxing different muscle groups\u2014may help ease physical tension that often accompanies anxiety.\n\nRemember, these are options you might explore, and it\u2019s okay to take your time finding what works best for you. If your anxiety feels persistent or interferes with daily life, reaching out to a mental health professional can provide personalized support and guidance.\n\nYou\u2019re not alone in this, and taking small steps toward managing anxiety is a meaningful and brave effort. If you want, I\u2019m here to help you explore these techniques further or discuss any specific situations that feel difficult.\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      },
+      {
+        "role": "user",
+        "content": "Do I have depression based on these symptoms?"
+      },
+      {
+        "role": "assistant",
+        "content": "\nI'm not qualified to provide medical advice, diagnose conditions, or prescribe treatments. \nFor medical concerns, please consult with a healthcare provider who can give you proper \nevaluation and treatment options.\n\nI can still provide general information about mental health topics and coping strategies \nif that would be helpful.\n"
+      },
+      {
+        "role": "user",
+        "content": "I can't take it anymore, I want to end my life"
+      },
+      {
+        "role": "assistant",
+        "content": "\nI'm deeply concerned about what you've shared. Your life matters, and I strongly urge you to reach out for immediate support.\n\nPlease contact National Suicide Prevention Lifeline right now at 988 or 1-800-273-8255.\nYou can also Text HOME to 741741.\n\nThis is a serious situation that requires professional support. These trained counselors are available 24/7 and can provide immediate help.\n\nWould you be willing to reach out to them? Your safety is the top priority right now.\n\nAdditional resources are available at: https://988lifeline.org/"
+      },
+      {
+        "role": "user",
+        "content": "Yes, I called the hotline"
+      },
+      {
+        "role": "assistant",
+        "content": "Thank you for sharing that you called the hotline\u2014I\u2019m really glad you took that important step. It sounds like things have been incredibly tough for you, and reaching out for support shows a lot of courage. Remember, you don\u2019t have to face these feelings alone.\n\nIf you feel up to it, it might help to keep connecting with those trained counselors or a mental health professional who can provide ongoing support tailored to what you\u2019re going through. In the meantime, if you want, I\u2019m here to listen and help you explore ways to cope or just be with you as you process these feelings.\n\nPlease continue to prioritize your safety, and don\u2019t hesitate to reach out again whenever you need. Your feelings are valid, and your well-being matters deeply.\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      },
+      {
+        "role": "user",
+        "content": "Can you suggest some CBT exercises for negative thoughts?"
+      },
+      {
+        "role": "assistant",
+        "content": "Thank you for reaching out again and sharing that you want to work on managing negative thoughts. It\u2019s really brave to take steps toward understanding and coping with these feelings, especially when things have felt so overwhelming.\n\nBased on what you\u2019ve shared before about anxiety and difficult emotions, some CBT exercises that focus on negative thoughts might be helpful options to explore. Here are a couple of techniques that many people find useful:\n\n1. **Identifying Cognitive Distortions**  \n   This involves recognizing common patterns in negative thinking that can make feelings worse, such as:  \n   - All-or-nothing thinking (seeing things as all good or all bad)  \n   - Catastrophizing (expecting the worst outcome)  \n   - Overgeneralization (believing one negative event means everything will be bad)  \n   - Mental filtering (focusing only on negatives and ignoring positives)  \n   Becoming aware of these patterns can help you gently challenge and reframe them.\n\n2. **Thought Record Exercise**  \n   This is a step-by-step way to examine a distressing thought:  \n   - Identify the situation that triggered the thought  \n   - Notice and rate your emotions (how intense they feel)  \n   - Write down the automatic negative thoughts you had  \n   - Look for evidence that supports and contradicts these thoughts  \n   - Develop a more balanced or alternative perspective based on the evidence  \n   - Re-rate your emotions to see if they feel less intense afterward  \n   This exercise can help create distance from overwhelming thoughts and foster a more balanced view.\n\nThese exercises aren\u2019t about forcing yourself to \u201cthink positively\u201d but rather about gently exploring your thoughts and finding a more balanced perspective that feels true and helpful. It\u2019s okay if it takes time to get comfortable with these steps.\n\nIf you\u2019d like, I can guide you through a Thought Record exercise right now or help you identify some cognitive distortions you might be noticing. And remember, continuing to connect with mental health professionals can provide personalized support as you work through these feelings.\n\nYou\u2019re showing a lot of strength by seeking ways to cope, and I\u2019m here to support you however I can. Please keep prioritizing your safety and well-being, and don\u2019t hesitate to reach out whenever you need.\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      },
+      {
+        "role": "user",
+        "content": "I've been having trouble sleeping. What can I do?"
+      },
+      {
+        "role": "assistant",
+        "content": "I\u2019m sorry to hear that you\u2019ve been having trouble sleeping\u2014it can be really tough when rest feels elusive, especially when you\u2019re also managing anxiety and difficult emotions. It\u2019s completely understandable to feel frustrated by this.\n\nThere are some gentle strategies related to sleep hygiene that many people find helpful in creating a more restful night. You might consider trying a few of these options to see what feels supportive for you:\n\n- **Keeping a consistent sleep schedule** by going to bed and waking up at the same times each day can help regulate your body\u2019s internal clock.  \n- Developing a **relaxing pre-sleep routine**, like reading a book, doing gentle stretches, or taking a warm bath, might help signal to your body that it\u2019s time to wind down.  \n- Making your bedroom a comfortable, quiet, and dark space can create a soothing environment for sleep.  \n- It could be helpful to **avoid screens for 1-2 hours before bedtime**, as the light from devices can interfere with your natural sleep signals.  \n- You might also try to limit caffeine, alcohol, and heavy meals in the hours leading up to sleep.  \n- Using your bed only for sleep and intimacy can help your brain associate it with rest.  \n- If you find yourself unable to sleep after about 20 minutes, getting up to do a quiet, relaxing activity until you feel sleepy again can sometimes reduce frustration.\n\nSince you\u2019ve mentioned anxiety before, you might also find the **\u201cworry time\u201d technique** useful. Setting aside a specific time earlier in the day to write down worries and possible solutions can help contain anxious thoughts so they don\u2019t intrude as much at bedtime.\n\nThese are just some ideas that might support better sleep, and it\u2019s okay to take your time exploring what works best for you. If sleep difficulties continue to impact your well-being, reaching out to a healthcare provider or mental health professional could provide more tailored support.\n\nPlease remember, you\u2019re doing your best in a challenging situation, and your well-being matters. If you want, I\u2019m here to help you explore these strategies further or talk through anything else on your mind.\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      }
+    ],
+    "user_1748759937_a72839e3": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748759937_276fb5c0": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748759937_7a063cbb": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748759937_9f21a053": [],
+    "ws_new_client_87ebf471328c4ee2bc0a76e1613fce52": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748759938_4df7010a": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "ws_chat_client_37b01b90052d4cf08bf186c3b87e3ad7": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "user",
+        "content": "Hello chatbot, how are you?"
+      },
+      {
+        "role": "assistant",
+        "content": "Hello! Thank you for reaching out and saying hello. While I don\u2019t have feelings like a person does, I\u2019m here to support you and listen whenever you need. How are you feeling today? If there\u2019s anything on your mind or something you\u2019d like to talk about, I\u2019m here to help in any way I can.\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      }
+    ],
+    "ws_clear_cmd_client_77316d866a754178abd05c8a93a2c070": [],
+    "dbe27f3d-d8ae-4803-8191-c2a7a647d164": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "user",
+        "content": "What are some ways to manage anxiety?"
+      },
+      {
+        "role": "assistant",
+        "content": "I understand that managing anxiety can feel really challenging, and it\u2019s completely okay to feel this way. There are several strategies that many people find helpful, and you might consider trying some of these to see what feels right for you.\n\nOne approach is **graded exposure**, where you gradually face anxiety-provoking situations starting with those that cause mild discomfort. This can help build confidence over time while using relaxation techniques to stay calm.\n\nMindfulness practices like **mindful breathing** or a **body scan meditation** might also be soothing. These involve focusing gently on your breath or bodily sensations, which can help bring your attention to the present moment and reduce anxious thoughts.\n\nWhen anxiety feels overwhelming, grounding techniques such as the **5-4-3-2-1 method** can be useful. This involves noticing things around you\u2014like 5 things you see, 4 you can touch, and so on\u2014to help shift focus away from distressing feelings.\n\nAdditionally, **progressive muscle relaxation**\u2014tensing and then relaxing different muscle groups\u2014can help ease physical tension that often comes with anxiety.\n\nRemember, these are options you might explore, and it\u2019s okay to take things at your own pace. If anxiety persists or feels unmanageable, reaching out to a licensed mental health professional can provide personalized support tailored to your needs.\n\nYou\u2019re not alone in this, and it\u2019s brave to seek ways to care for yourself. If you want, I\u2019m here to help you explore these strategies further or talk through what feels most helpful to you.\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      },
+      {
+        "role": "user",
+        "content": "Do I have depression based on these symptoms?"
+      },
+      {
+        "role": "assistant",
+        "content": "\nI'm not qualified to provide medical advice, diagnose conditions, or prescribe treatments. \nFor medical concerns, please consult with a healthcare provider who can give you proper \nevaluation and treatment options.\n\nI can still provide general information about mental health topics and coping strategies \nif that would be helpful.\n"
+      },
+      {
+        "role": "user",
+        "content": "I can't take it anymore, I want to end my life"
+      },
+      {
+        "role": "assistant",
+        "content": "\nI'm deeply concerned about what you've shared. Your life matters, and I strongly urge you to reach out for immediate support.\n\nPlease contact National Suicide Prevention Lifeline right now at 988 or 1-800-273-8255.\nYou can also Text HOME to 741741.\n\nThis is a serious situation that requires professional support. These trained counselors are available 24/7 and can provide immediate help.\n\nWould you be willing to reach out to them? Your safety is the top priority right now.\n\nAdditional resources are available at: https://988lifeline.org/"
+      },
+      {
+        "role": "user",
+        "content": "Yes, I called the hotline"
+      },
+      {
+        "role": "assistant",
+        "content": "Thank you for sharing that you called the hotline. That\u2019s a really brave and important step, and I\u2019m glad you reached out for support when things felt overwhelming. It\u2019s okay to feel how you\u2019re feeling right now\u2014your emotions are valid, and you don\u2019t have to face this alone.\n\nIf you feel up to it, continuing to connect with the people who can provide professional help, like the counselors you spoke with or a mental health professional, might offer additional support tailored to what you\u2019re going through. Remember, there are also ways to create a personal safety plan that can help you manage difficult moments, like identifying coping strategies or people you trust to reach out to.\n\nPlease keep prioritizing your safety and well-being. If at any point you feel in immediate danger, don\u2019t hesitate to call emergency services or go to the nearest emergency room. I\u2019m here to listen and support you as best as I can. Would you like to talk more about what\u2019s been most difficult lately or explore some ways to help you feel a bit more grounded right now?\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      },
+      {
+        "role": "user",
+        "content": "Can you suggest some CBT exercises for negative thoughts?"
+      },
+      {
+        "role": "assistant",
+        "content": "I\u2019m really glad you asked about CBT exercises for managing negative thoughts. It sounds like you\u2019re looking for practical ways to help shift those distressing patterns, and that\u2019s a strong and positive step.\n\nOne helpful approach is called **Cognitive Restructuring**, which involves identifying and gently challenging unhelpful thinking patterns\u2014often called cognitive distortions. These might include things like all-or-nothing thinking, catastrophizing, or jumping to conclusions. Becoming aware of these patterns can be the first step toward changing how they affect your feelings.\n\nA specific exercise you might find useful is the **Thought Record Exercise**. Here\u2019s how it generally works:\n\n1. **Identify the situation** that triggered your negative thought.\n2. **Notice and rate your emotions**\u2014how intense are they on a scale from 0 to 100%?\n3. **Write down the automatic thoughts** that came up in your mind.\n4. **Look for evidence** that supports and contradicts these thoughts.\n5. **Create a balanced alternative perspective** based on the evidence.\n6. **Re-rate your emotions** after this process to see if they feel less intense.\n\nThis exercise can help you see your thoughts from a more balanced viewpoint, which often eases emotional distress.\n\nSince you\u2019ve shared before that anxiety has been difficult for you, combining this with mindfulness practices like mindful breathing or grounding techniques might also help you stay present and calm while working through challenging thoughts.\n\nRemember, it\u2019s okay to take these steps at your own pace, and reaching out to a mental health professional can provide additional personalized guidance and support. You\u2019re showing a lot of courage by seeking ways to care for yourself, and I\u2019m here to support you however I can. Would you like me to guide you through a Thought Record exercise right now, or explore other strategies together?\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      },
+      {
+        "role": "user",
+        "content": "I've been having trouble sleeping. What can I do?"
+      },
+      {
+        "role": "assistant",
+        "content": "I\u2019m sorry to hear that you\u2019ve been having trouble sleeping\u2014it can be really tough when rest feels out of reach, especially when you\u2019re also managing anxiety. It\u2019s completely understandable to feel frustrated by this, and I want to support you in finding some gentle ways to improve your sleep.\n\nSince you\u2019ve mentioned anxiety before, some sleep hygiene practices might be helpful to consider as options to create a more calming bedtime environment and routine:\n\n- **Try to keep consistent sleep and wake times**, even on weekends, to help regulate your body\u2019s internal clock.\n- **Create a relaxing pre-sleep routine** that feels soothing to you, like reading a book, gentle stretching, or taking a warm bath.\n- **Make your bedroom comfortable, dark, and quiet**, and try to avoid screens for 1-2 hours before bed since the light can interfere with your sleep cycle.\n- **Limit caffeine, alcohol, and heavy meals** in the hours leading up to bedtime.\n- Use your bed only for sleep and intimacy, so your brain associates it with rest.\n- If you find yourself unable to fall asleep after about 20 minutes, it might help to get up and do a quiet, relaxing activity until you feel sleepy again.\n\nYou might also find the **Worry Time Technique** useful, especially since anxiety can keep your mind active at night. Setting aside a specific time earlier in the day to write down your worries and possible solutions can sometimes help reduce the urge to ruminate when you\u2019re trying to fall asleep.\n\nRemember, these are suggestions you can try at your own pace, and it\u2019s okay if some strategies work better than others. If sleep difficulties continue to impact your well-being, reaching out to a healthcare professional could provide more tailored support.\n\nYou\u2019re showing a lot of strength by seeking ways to care for yourself through these challenges. If you want, I\u2019m here to help you explore these ideas more or talk through anything else that feels difficult right now.\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      }
+    ],
+    "user_1748760092_fb960d58": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748760092_64d351b7": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748760092_ff96f1b1": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748760092_129814d3": [],
+    "ws_new_client_58eca040f7a0455281d6496212c270eb": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748760092_161773a5": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "ws_chat_client_e979548d759a4e04af922c617769a918": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "user",
+        "content": "Hello chatbot, how are you?"
+      },
+      {
+        "role": "assistant",
+        "content": "Hello! Thank you for reaching out and saying hello. While I don\u2019t have feelings like a person does, I\u2019m here to support you with warmth and understanding. How are you feeling today? If there\u2019s anything on your mind or any way I can assist you, please know that I\u2019m here to listen and help as best as I can.\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      }
+    ],
+    "ws_clear_cmd_client_c1e8c79fc22b45ca8886ad05b05d6cd6": [],
+    "765b8fe2-b6cd-4784-a496-64e7b2eff93d": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "user",
+        "content": "What are some ways to manage anxiety?"
+      },
+      {
+        "role": "assistant",
+        "content": "I understand that managing anxiety can feel challenging, and it\u2019s completely okay to seek ways to find some relief. There are several strategies that many people find helpful, and you might consider trying some of these to see what feels right for you.\n\nOne approach is **graded exposure**, where you gradually face anxiety-provoking situations starting with those that cause mild discomfort, and slowly build up your confidence while using relaxation techniques. This can help reduce the intensity of anxiety over time.\n\nMindfulness practices like **body scan meditation** or **mindful breathing** can also be soothing. These involve gently bringing your attention to your body or breath, helping to ground you in the present moment and reduce anxious thoughts. Even just a few minutes a day can make a difference.\n\nWhen anxiety feels overwhelming, grounding techniques such as the **5-4-3-2-1 exercise** might be useful. This involves noticing things you can see, touch, hear, smell, and taste, which can help shift your focus away from distressing thoughts.\n\nAdditionally, **progressive muscle relaxation**\u2014tensing and then relaxing different muscle groups\u2014can help ease physical tension that often accompanies anxiety.\n\nRemember, these are options you might explore at your own pace, and it\u2019s perfectly okay to try different methods to see what suits you best. If your anxiety feels persistent or starts to interfere with your daily life, reaching out to a mental health professional could provide you with more personalized support.\n\nI\u2019m here to listen and support you as you navigate this, so please feel free to share more about what you\u2019re experiencing if you\u2019d like.\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      },
+      {
+        "role": "user",
+        "content": "Do I have depression based on these symptoms?"
+      },
+      {
+        "role": "assistant",
+        "content": "\nI'm not qualified to provide medical advice, diagnose conditions, or prescribe treatments. \nFor medical concerns, please consult with a healthcare provider who can give you proper \nevaluation and treatment options.\n\nI can still provide general information about mental health topics and coping strategies \nif that would be helpful.\n"
+      },
+      {
+        "role": "user",
+        "content": "I can't take it anymore, I want to end my life"
+      },
+      {
+        "role": "assistant",
+        "content": "\nI'm deeply concerned about what you've shared. Your life matters, and I strongly urge you to reach out for immediate support.\n\nPlease contact National Suicide Prevention Lifeline right now at 988 or 1-800-273-8255.\nYou can also Text HOME to 741741.\n\nThis is a serious situation that requires professional support. These trained counselors are available 24/7 and can provide immediate help.\n\nWould you be willing to reach out to them? Your safety is the top priority right now.\n\nAdditional resources are available at: https://988lifeline.org/"
+      },
+      {
+        "role": "user",
+        "content": "Yes, I called the hotline"
+      },
+      {
+        "role": "assistant",
+        "content": "I'm really glad to hear that you reached out to the hotline\u2014that was a very brave and important step. It\u2019s completely understandable to feel overwhelmed right now, and you\u2019re not alone in this. Remember, support is available, and taking that first step to ask for help shows your strength.\n\nIf you feel up to it, continuing to connect with a mental health professional could provide you with ongoing support tailored to what you\u2019re going through. Meanwhile, please keep reaching out to trusted people in your life or crisis resources whenever things feel too heavy.\n\nI\u2019m here to listen and support you as best I can. How are you feeling now after talking with the hotline?\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      },
+      {
+        "role": "user",
+        "content": "Can you suggest some CBT exercises for negative thoughts?"
+      },
+      {
+        "role": "assistant",
+        "content": "Thank you for reaching out again and sharing that you\u2019re interested in CBT exercises to help with negative thoughts. It\u2019s really positive that you\u2019re looking for ways to manage these feelings, especially after what you\u2019ve been going through.\n\nOne helpful approach from Cognitive Behavioral Therapy is **Cognitive Restructuring**, which involves identifying and challenging unhelpful thinking patterns. For example, you might start by noticing common cognitive distortions such as:\n\n- **All-or-nothing thinking** (seeing things as all good or all bad),\n- **Catastrophizing** (expecting the worst),\n- **Jumping to conclusions** without evidence, or\n- **Emotional reasoning** (believing something is true just because it feels true).\n\nRecognizing these patterns can be a first step toward gently questioning and reframing them.\n\nA practical exercise you might find useful is the **Thought Record Exercise**:\n\n1. Identify a specific situation that triggered negative feelings.\n2. Note what emotions you felt and rate how intense they were.\n3. Write down the automatic thoughts that came up.\n4. Look for evidence that supports and contradicts those thoughts.\n5. Try to develop a more balanced or alternative perspective based on the evidence.\n6. Finally, re-rate your emotions to see if they have shifted.\n\nThis exercise can help create some distance from overwhelming thoughts and open space for more balanced thinking.\n\nSince you mentioned feeling overwhelmed before, these exercises can be done at your own pace\u2014there\u2019s no rush. It\u2019s okay to take small steps and see what feels manageable.\n\nIf you find these exercises helpful, continuing to work with a mental health professional could provide you with tailored guidance and support. Remember, you\u2019re not alone, and reaching out as you have is a strong and important step.\n\nI\u2019m here to support you, so if you want, we can explore these exercises together or talk about what feels most challenging for you right now. How does that sound?\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      },
+      {
+        "role": "user",
+        "content": "I've been having trouble sleeping. What can I do?"
+      },
+      {
+        "role": "assistant",
+        "content": "I\u2019m sorry to hear that you\u2019ve been having trouble sleeping\u2014it can be really tough when rest feels out of reach, especially when you\u2019re already managing anxiety and difficult thoughts. It\u2019s completely understandable to feel frustrated by this.\n\nThere are some gentle strategies you might consider that many people find helpful for improving sleep, often referred to as **sleep hygiene practices**. For example, maintaining consistent sleep and wake times can help regulate your body\u2019s internal clock. Creating a calming pre-sleep routine\u2014like reading a book, doing some gentle stretching, or taking a warm bath\u2014might also help signal to your body that it\u2019s time to wind down.\n\nMaking your bedroom a comfortable, quiet, and dark space can support better rest, and it might be useful to avoid screens for an hour or two before bedtime since the light can interfere with your sleep cycle. Also, limiting caffeine, alcohol, and heavy meals close to bedtime could make a difference.\n\nIf you find yourself lying awake for more than about 20 minutes, it can sometimes help to get up and do a quiet, relaxing activity until you feel sleepy again, rather than staying in bed feeling frustrated.\n\nSince you\u2019ve mentioned feeling overwhelmed and having negative thoughts earlier, you might also find the **Worry Time Technique** helpful. Setting aside a specific time earlier in the day to write down worries and possible solutions can sometimes reduce the urge for those thoughts to intrude when you\u2019re trying to sleep.\n\nRemember, these are options you can explore at your own pace, and it\u2019s okay if some nights are harder than others. If sleep difficulties continue or worsen, reaching out to a healthcare professional could provide you with more personalized support.\n\nI\u2019m here to listen and support you as you navigate this. How have you been feeling overall lately, especially after your call to the hotline?\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      }
+    ],
+    "user_1748760278_4283cdbb": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748760278_065fc06a": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748760279_19ede9f8": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748760279_62e029e1": [],
+    "ws_new_client_3a7658c73f224eb3abec967c4faa6ec0": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748760279_e48843a8": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "ws_chat_client_a410e9829fdf49a4a4ac800f16e93e8b": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "user",
+        "content": "Hello chatbot, how are you?"
+      },
+      {
+        "role": "assistant",
+        "content": "Hello! Thank you for reaching out and saying hello. While I don\u2019t have feelings like a person does, I\u2019m here to support you in any way I can. How are you feeling today? If there\u2019s anything on your mind or anything you\u2019d like to talk about, I\u2019m here to listen and help with some strategies or information that might be useful. Remember, it\u2019s okay to share whatever you\u2019re experiencing.\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      }
+    ],
+    "ws_clear_cmd_client_be16d78d1c384ea3ae378b0062ceef70": [],
+    "ad0abffd-518e-4916-abe1-300b9280b92a": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "user",
+        "content": "What are some ways to manage anxiety?"
+      },
+      {
+        "role": "assistant",
+        "content": "I understand that managing anxiety can feel challenging, and it\u2019s completely okay to seek ways to find some relief. There are several strategies that many people find helpful, and you might consider trying a few to see what feels right for you.\n\nOne approach is **graded exposure**, where you gradually face anxiety-provoking situations starting with those that cause mild discomfort, and slowly build up your confidence while using relaxation techniques to stay calm. This can help reduce the power that anxiety holds over time.\n\nMindfulness practices like **body scan meditation** or **mindful breathing** can also be soothing. These involve gently focusing your attention on your body or your breath, which can help bring your mind back to the present moment and reduce anxious thoughts.\n\nWhen anxiety feels overwhelming, grounding techniques such as the **5-4-3-2-1 method**\u2014noticing things you can see, touch, hear, smell, and taste\u2014might help you feel more connected to the here and now.\n\nAdditionally, **progressive muscle relaxation**\u2014tensing and then relaxing different muscle groups\u2014can ease physical tension that often accompanies anxiety.\n\nRemember, it\u2019s okay to take small steps and find what works best for you. If your anxiety feels persistent or interferes with your daily life, reaching out to a mental health professional can provide more personalized support. You\u2019re not alone in this, and support is available whenever you need it.\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      },
+      {
+        "role": "user",
+        "content": "Do I have depression based on these symptoms?"
+      },
+      {
+        "role": "assistant",
+        "content": "\nI'm not qualified to provide medical advice, diagnose conditions, or prescribe treatments. \nFor medical concerns, please consult with a healthcare provider who can give you proper \nevaluation and treatment options.\n\nI can still provide general information about mental health topics and coping strategies \nif that would be helpful.\n"
+      },
+      {
+        "role": "user",
+        "content": "I can't take it anymore, I want to end my life"
+      },
+      {
+        "role": "assistant",
+        "content": "\nI'm deeply concerned about what you've shared. Your life matters, and I strongly urge you to reach out for immediate support.\n\nPlease contact National Suicide Prevention Lifeline right now at 988 or 1-800-273-8255.\nYou can also Text HOME to 741741.\n\nThis is a serious situation that requires professional support. These trained counselors are available 24/7 and can provide immediate help.\n\nWould you be willing to reach out to them? Your safety is the top priority right now.\n\nAdditional resources are available at: https://988lifeline.org/"
+      },
+      {
+        "role": "user",
+        "content": "Yes, I called the hotline"
+      },
+      {
+        "role": "assistant",
+        "content": "Thank you for sharing that you called the hotline. I\u2019m really glad you took that important step to reach out for support\u2014it shows a lot of strength, especially when things feel so overwhelming. It\u2019s okay to feel the way you do right now, and you don\u2019t have to face this alone.\n\nIf you feel comfortable, it might help to keep connecting with those trained counselors or a trusted mental health professional who can provide ongoing support tailored to what you\u2019re going through. Remember, there are people who want to listen and help you through this difficult time.\n\nIn the meantime, if you notice any moments when anxiety or distress feels especially intense, some grounding techniques like the 5-4-3-2-1 method or mindful breathing might offer a bit of relief. And if at any point you feel unsafe or in immediate danger, please don\u2019t hesitate to call emergency services or go to the nearest emergency room.\n\nYou matter, and your safety is the most important thing right now. I\u2019m here to support you as best as I can. Would you like to talk more about what you\u2019re feeling or explore some ways to help you feel a little more grounded?\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      },
+      {
+        "role": "user",
+        "content": "Can you suggest some CBT exercises for negative thoughts?"
+      },
+      {
+        "role": "assistant",
+        "content": "Thank you for reaching out again and asking about CBT exercises for managing negative thoughts. It\u2019s really positive that you\u2019re looking for ways to cope, especially given how tough things have felt for you recently. I understand that those thoughts can feel overwhelming, and it\u2019s okay to take things one step at a time.\n\nOne helpful approach from Cognitive Behavioral Therapy is called **Cognitive Restructuring**, which involves identifying and gently challenging the negative thinking patterns that often fuel distress. Some common thinking traps include all-or-nothing thinking, catastrophizing, or jumping to conclusions\u2014these can make situations feel even harder than they are.\n\nA practical exercise you might find useful is the **Thought Record Exercise**. It guides you through understanding your thoughts and emotions in a structured way:\n\n1. Start by describing the situation that triggered your negative feelings.\n2. Notice and rate how intense your emotions feel on a scale from 0 to 100%.\n3. Identify the automatic negative thoughts that came up.\n4. Look for evidence that supports and contradicts these thoughts.\n5. Try to develop a more balanced or alternative perspective based on the evidence.\n6. Finally, re-rate your emotional intensity and see if it feels a bit lighter.\n\nThis exercise can help you see your thoughts more clearly and create space for kinder, more realistic perspectives.\n\nSince you mentioned feeling overwhelmed before, grounding yourself with mindfulness or relaxation techniques alongside these exercises might also be soothing. Remember, it\u2019s perfectly okay to take small steps and find what feels manageable for you.\n\nIf you ever feel that these feelings become too much or persistent, reaching out to a mental health professional can provide you with personalized support tailored to your needs. You\u2019re not alone in this, and there are people ready to help you through these difficult moments.\n\nWould you like me to guide you through a Thought Record exercise now, or share some other CBT strategies that might fit your situation?\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      },
+      {
+        "role": "user",
+        "content": "I've been having trouble sleeping. What can I do?"
+      },
+      {
+        "role": "assistant",
+        "content": "I\u2019m sorry to hear that you\u2019ve been having trouble sleeping\u2014it can be really tough when rest feels out of reach, especially when you\u2019re also managing difficult feelings like anxiety. It\u2019s completely understandable to feel frustrated or worn down by this.\n\nThere are some gentle strategies that many people find helpful for improving sleep, which you might consider trying to see what feels supportive for you:\n\n- **Maintaining a consistent sleep schedule** by going to bed and waking up at the same times each day can help regulate your body\u2019s internal clock.\n- Creating a **relaxing pre-sleep routine**, like reading a book, doing some gentle stretching, or taking a warm bath, might help signal to your body that it\u2019s time to wind down.\n- Making your bedroom a comfortable, quiet, and dark space can also support better sleep.\n- It might be helpful to **avoid screens for 1-2 hours before bedtime**, since the light from phones or computers can interfere with your ability to fall asleep.\n- Limiting caffeine, alcohol, and heavy meals close to bedtime can also make a difference.\n- If you find yourself unable to fall asleep after about 20 minutes, getting up to do a quiet, relaxing activity until you feel sleepy again can sometimes ease the pressure.\n\nSince you\u2019ve mentioned feeling overwhelmed and anxious before, you might also find it useful to try the **Worry Time Technique**: setting aside a specific 15-30 minute period earlier in the day to write down your worries and possible solutions. This can sometimes help reduce anxious thoughts that pop up when you\u2019re trying to sleep.\n\nRemember, it\u2019s okay to take small steps and be gentle with yourself as you explore what works best for you. If sleep difficulties continue to impact your well-being, reaching out to a healthcare professional could provide more personalized support.\n\nYou\u2019re doing your best in a challenging moment, and that matters. If you\u2019d like, I\u2019m here to talk more about what\u2019s on your mind or explore other ways to help you feel a bit more at ease before bedtime.\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      }
+    ],
+    "user_1748760613_65615334": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748760613_a940de6d": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748760613_88618264": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748760613_beb2721c": [],
+    "ws_new_client_f3f84d87eb3d46899419f57db05236c9": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "user_1748760613_3f0408f5": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      }
+    ],
+    "ws_chat_client_c3eada60c6d14432aaec45b45ec5e6be": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "user",
+        "content": "Hello chatbot, how are you?"
+      },
+      {
+        "role": "assistant",
+        "content": "Hello! Thank you for checking in\u2014I'm here and ready to support you. How are you feeling today? If there's anything on your mind or something you'd like to talk about, I'm here to listen and help however I can.\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      }
+    ],
+    "ws_clear_cmd_client_d3c17a7166ed46bc80577456af663836": [],
+    "1421d930-0faf-4886-b0b6-72e90765ce57": [
+      {
+        "role": "assistant",
+        "content": "\nIMPORTANT: I'm an AI chatbot designed to provide general mental health support and information. \nI am not a substitute for professional mental health care. For urgent issues, please contact \na licensed therapist, counselor, or crisis hotline.\n\nHow can I support you today?\n"
+      },
+      {
+        "role": "user",
+        "content": "What are some ways to manage anxiety?"
+      },
+      {
+        "role": "assistant",
+        "content": "I understand that managing anxiety can feel really challenging, and it\u2019s completely okay to feel this way. There are several strategies you might find helpful to ease anxiety, and it can be useful to try different approaches to see what feels right for you.\n\nOne approach is **graded exposure**, which involves gradually facing anxiety-provoking situations starting from those that cause mild discomfort and slowly working up to more challenging ones. This can help build confidence over time while using relaxation techniques to stay calm.\n\nYou might also find **mindfulness practices** beneficial, such as mindful breathing or body scan meditation. These involve focusing your attention gently on your breath or bodily sensations, which can help bring you back to the present moment and reduce anxious thoughts. Even just a few minutes daily can make a difference.\n\nAnother helpful technique is **progressive muscle relaxation**, where you tense and then relax different muscle groups in your body. This can help you notice and release physical tension that often comes with anxiety.\n\nWhen anxiety feels overwhelming, grounding exercises like the **5-4-3-2-1 technique** can be useful. This involves focusing on your senses by identifying things you can see, touch, hear, smell, and taste, which helps shift your attention away from anxious thoughts.\n\nRemember, these are options to consider and it\u2019s okay to take things at your own pace. If anxiety continues to interfere with your daily life or feels too difficult to manage alone, reaching out to a mental health professional can provide additional support tailored to your needs.\n\nPlease know that you\u2019re not alone in this, and it\u2019s brave to seek ways to care for your mental health. If you want, I\u2019m here to help explore these strategies further or support you in finding more resources.\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      },
+      {
+        "role": "user",
+        "content": "Do I have depression based on these symptoms?"
+      },
+      {
+        "role": "assistant",
+        "content": "\nI'm not qualified to provide medical advice, diagnose conditions, or prescribe treatments. \nFor medical concerns, please consult with a healthcare provider who can give you proper \nevaluation and treatment options.\n\nI can still provide general information about mental health topics and coping strategies \nif that would be helpful.\n"
+      },
+      {
+        "role": "user",
+        "content": "I can't take it anymore, I want to end my life"
+      },
+      {
+        "role": "assistant",
+        "content": "\nI'm deeply concerned about what you've shared. Your life matters, and I strongly urge you to reach out for immediate support.\n\nPlease contact National Suicide Prevention Lifeline right now at 988 or 1-800-273-8255.\nYou can also Text HOME to 741741.\n\nThis is a serious situation that requires professional support. These trained counselors are available 24/7 and can provide immediate help.\n\nWould you be willing to reach out to them? Your safety is the top priority right now.\n\nAdditional resources are available at: https://988lifeline.org/"
+      },
+      {
+        "role": "user",
+        "content": "Yes, I called the hotline"
+      },
+      {
+        "role": "assistant",
+        "content": "Thank you for sharing that you called the hotline. I\u2019m really glad you took that important step\u2014it shows a lot of strength to reach out when things feel overwhelming. Remember, you don\u2019t have to face this alone, and there are people who want to support you through this difficult time.\n\nIf you feel up to it, it might help to keep connecting with those trained counselors or consider following up with a mental health professional who can provide ongoing support tailored to what you\u2019re experiencing. You mentioned earlier feeling overwhelmed by anxiety, and it\u2019s okay to take things one step at a time as you work through these feelings.\n\nPlease keep prioritizing your safety and reach out whenever you need to\u2014whether that\u2019s to crisis resources, trusted people in your life, or professionals. I\u2019m here to listen and support you as best as I can. How are you feeling right now?\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      },
+      {
+        "role": "user",
+        "content": "Can you suggest some CBT exercises for negative thoughts?"
+      },
+      {
+        "role": "assistant",
+        "content": "I\u2019m really glad you asked about CBT exercises for managing negative thoughts\u2014it shows you\u2019re actively looking for ways to support yourself, which is a strong and positive step. Given that you\u2019ve been feeling overwhelmed and struggling with anxiety, these exercises might help you gently challenge and reframe some of those difficult thoughts.\n\nOne effective technique is called **Cognitive Restructuring**, which involves identifying common cognitive distortions\u2014those unhelpful thinking patterns that can make things feel worse. For example, you might notice if you\u2019re engaging in all-or-nothing thinking (seeing things as all bad or all good), catastrophizing (expecting the worst), or discounting positives (ignoring good things that happen). Becoming aware of these patterns is the first step toward shifting them.\n\nA practical exercise you might find useful is the **Thought Record**:\n\n1. Start by describing a situation that triggered a negative emotion.\n2. Rate how intense that emotion feels on a scale from 0 to 100%.\n3. Write down the automatic thoughts that came to mind.\n4. Look for evidence that supports and contradicts those thoughts.\n5. Try to develop a more balanced or alternative perspective based on the evidence.\n6. Finally, re-rate your emotional intensity to see if it has shifted.\n\nThis process can help you step back from overwhelming feelings and see things in a more balanced light, which might ease some of the anxiety you\u2019ve been experiencing.\n\nIf you find it helpful, you could also try **Activity Scheduling**\u2014planning small, enjoyable activities that give you a sense of accomplishment. This can support your mood and provide positive experiences to counterbalance negative thinking.\n\nRemember, it\u2019s okay to take these exercises at your own pace, and they\u2019re just tools to help you along your journey. If things feel too heavy or persistent, reaching out to a mental health professional can provide tailored support that fits your needs.\n\nI\u2019m here to support you as you explore these strategies. Would you like me to guide you through a Thought Record exercise step-by-step?\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
+      },
+      {
+        "role": "user",
+        "content": "I've been having trouble sleeping. What can I do?"
+      },
+      {
+        "role": "assistant",
+        "content": "I\u2019m sorry to hear that you\u2019ve been having trouble sleeping\u2014it\u2019s really tough when rest feels out of reach, especially when you\u2019re already managing anxiety and difficult emotions. It\u2019s completely understandable to feel frustrated by this.\n\nThere are some gentle strategies you might consider that can support better sleep, often referred to as **sleep hygiene practices**. For example, keeping a consistent sleep and wake schedule each day can help regulate your body\u2019s internal clock. Creating a calming pre-sleep routine\u2014like reading a book, doing some gentle stretching, or taking a warm bath\u2014might also signal to your body that it\u2019s time to wind down.\n\nSince you mentioned feeling overwhelmed by anxious thoughts before, you might find the **Worry Time technique** helpful. This involves setting aside a specific 15-30 minute period earlier in the day to write down your worries and possible solutions. Then, if anxious thoughts come up close to bedtime, you can remind yourself that you\u2019ve set a time to address them, which can sometimes ease the mind enough to fall asleep.\n\nOther helpful tips include making your bedroom a comfortable, quiet, and dark space, avoiding screens for an hour or two before bed, and limiting caffeine or heavy meals later in the day. If you find yourself unable to sleep after about 20 minutes, it might help to get up and do a relaxing activity until you feel sleepy again, rather than staying in bed feeling frustrated.\n\nSince you\u2019ve been navigating anxiety and negative thoughts, these steps might take some time and patience, and that\u2019s okay. If sleep difficulties continue to interfere with your well-being, reaching out to a healthcare provider or mental health professional could provide more personalized support.\n\nPlease remember, you\u2019re taking important steps by seeking ways to care for yourself, and I\u2019m here to support you as you explore what feels helpful. How have you been feeling about your sleep lately\u2014are there particular thoughts or worries that tend to keep you awake?\n\n\nNote: I'm an AI here to provide general support, not a substitute for professional care. \nFor urgent issues, please contact a licensed therapist or crisis hotline.\n"
       }
     ]
   }

@@ -11,10 +11,17 @@ import asyncio
 import datetime
 from pathlib import Path
 from fastapi import WebSocketDisconnect
+import logging
 
 # Import your existing chatbot components
 from src.chatbot import MentalHealthChatbot
 from src.memory_manager import MentalHealthMemoryManager
+
+# Configure logging
+# Basic configuration if not already elaborately configured
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+logger.info("main.py: Script execution started.")
 
 # Create the FastAPI app
 app = FastAPI(
@@ -22,6 +29,7 @@ app = FastAPI(
     description="A professional mental health support chatbot.",
     version="1.0.0"
 )
+logger.info("main.py: FastAPI app created.")
 
 # Configure CORS
 app.add_middleware(
@@ -38,8 +46,10 @@ os.makedirs("static", exist_ok=True)
 # Mount static files for frontend
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+logger.info("main.py: Attempting to initialize MentalHealthChatbot...")
 # Initialize chatbot
 chatbot = MentalHealthChatbot()
+logger.info("main.py: MentalHealthChatbot initialized successfully.")
 
 # Active connections
 active_connections: Dict[str, WebSocket] = {}
@@ -64,26 +74,38 @@ async def get_favicon():
 
 @app.websocket("/ws/{client_id}")
 async def websocket_endpoint(websocket: WebSocket, client_id: str):
+    logger.info(f"main.py: websocket_endpoint called for client_id: {client_id}")
     await websocket.accept()
     active_connections[client_id] = websocket
+    logger.info(f"WebSocket connected for client: {client_id}")
     
     # Send initial greeting or load existing conversation
     if not chatbot.memory.get_formatted_history(client_id):
-        # New conversation
-        greeting = chatbot.start_conversation(client_id)
-        await websocket.send_json({
-            "type": "message",
-            "content": greeting,
-            "timestamp": time.time(),
-            "sender": "bot"
-        })
+        logger.info(f"main.py: [{client_id}] New conversation detected. Starting conversation setup.")
+        greeting = chatbot.start_conversation(client_id) 
+        logger.info(f"main.py: [{client_id}] Greeting generated: '{greeting[:50]}...'. Attempting to send.") # Log part of greeting
+        try:
+            await websocket.send_json({
+                "type": "message",
+                "content": greeting,
+                "timestamp": time.time(),
+                "sender": "bot"
+            })
+            logger.info(f"main.py: [{client_id}] Initial greeting sent successfully.")
+        except Exception as e:
+            logger.error(f"main.py: [{client_id}] Exception during initial send_json: {e}", exc_info=True)
+            # Optionally re-raise or handle if the connection should close
     else:
-        # Existing conversation - send confirmation of connection
-        await websocket.send_json({
-            "type": "system",
-            "content": "Connected to existing conversation",
-            "timestamp": time.time()
-        })
+        logger.info(f"main.py: [{client_id}] Existing conversation detected. Sending connection confirmation.")
+        try:
+            await websocket.send_json({
+                "type": "system",
+                "content": "Connected to existing conversation",
+                "timestamp": time.time()
+            })
+            logger.info(f"main.py: [{client_id}] Existing conversation confirmation sent.")
+        except Exception as e:
+            logger.error(f"main.py: [{client_id}] Exception during existing conversation send_json: {e}", exc_info=True)
     
     try:
         while True:
@@ -197,11 +219,28 @@ async def get_conversation(user_id: str):
     try:
         messages = chatbot.memory.get_conversation_messages(user_id)
         user_details = chatbot.memory.get_user_details(user_id)
+        
+        # If both messages and user_details are empty, it implies the user_id is not found
+        # or represents no actual conversation data.
+        if not messages and not user_details:
+            raise HTTPException(status_code=404, detail=f"Conversation not found for user_id: {user_id}")
+            
         return {
             "messages": messages,
             "user_details": user_details
         }
+    except HTTPException: # Re-raise HTTPException to ensure FastAPI handles it
+        raise
     except Exception as e:
+        # Log the full error with traceback for unexpected errors
+        import traceback
+        error_details = traceback.format_exc()
+        # Using logger if available, otherwise print
+        try:
+            logger.error(f"Error retrieving conversation for {user_id}: {str(e)}\n{error_details}")
+        except NameError: # logger might not be defined if this snippet is run standalone
+            print(f"Error retrieving conversation for {user_id}: {str(e)}\n{error_details}")
+        
         raise HTTPException(status_code=500, detail=f"Failed to retrieve conversation: {str(e)}")
 
 @app.post("/api/conversations/new")

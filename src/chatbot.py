@@ -23,6 +23,8 @@ from src.response_generator import ResponseGenerator
 from src.crisis_detector import CrisisDetector
 from src.ethical_guidelines import EthicalGuidelines
 from src.memory_manager import MentalHealthMemoryManager
+from src.utils.common_utils import get_greeting
+from langchain_core.messages import HumanMessage, AIMessage
 
 # Load environment variables
 load_dotenv()
@@ -43,14 +45,16 @@ class MentalHealthChatbot:
     
     def __init__(self):
         """Initialize the chatbot with all its components."""
-        logger.info("Initializing Mental Health Chatbot")
-        
-        # Initialize components
+        logger.info("Initializing MentalHealthChatbot...")
         self.knowledge_base = initialize_knowledge_base()
-        self.response_generator = ResponseGenerator()
+        self.response_generator = ResponseGenerator(self.knowledge_base)
         self.crisis_detector = CrisisDetector()
-        self.ethics = EthicalGuidelines()
-        self.memory = MentalHealthMemoryManager(max_history_length=10)
+        self.ethical_guidelines = EthicalGuidelines()
+        # Initialize memory manager with max_token_limit
+        self.memory = MentalHealthMemoryManager(max_token_limit=3000) 
+        self.active_connections = {}
+        self.user_safety_followup_timers = {}
+        logger.info("MentalHealthChatbot initialized successfully.")
         
         # Conversation state
         self.conversation_started = False
@@ -77,7 +81,7 @@ class MentalHealthChatbot:
         # Clear any existing conversation history
         self.memory.clear_history(user_id)
         
-        initial_message = self.ethics.get_initial_disclaimer()
+        initial_message = self.ethical_guidelines.get_initial_disclaimer()
         
         # Add bot message to conversation history
         self.memory.add_bot_message(user_id, initial_message)
@@ -139,17 +143,17 @@ class MentalHealthChatbot:
                 return response
         
         # Check for medical advice request
-        if self.ethics.check_medical_advice_request(message):
+        if self.ethical_guidelines.check_medical_advice_request(message):
             logger.info("Medical advice request detected")
-            response = self.ethics.get_medical_advice_redirection()
+            response = self.ethical_guidelines.get_medical_advice_redirection()
             self.memory.add_bot_message(user_id, response)
             return response
         
         # Moderate content
-        is_flagged, moderation_result = self.ethics.moderate_content(message)
+        is_flagged, moderation_result = self.ethical_guidelines.moderate_content(message)
         if is_flagged:
             logger.warning("Content flagged by moderation API")
-            response = self.ethics.get_moderation_response(moderation_result)
+            response = self.ethical_guidelines.get_moderation_response(moderation_result)
             self.memory.add_bot_message(user_id, response)
             return response
         
@@ -176,7 +180,7 @@ class MentalHealthChatbot:
             
             # Add session disclaimer if not a special response
             if not self.crisis_detector.in_crisis_mode:
-                response = f"{response}\n\n{self.ethics.get_session_disclaimer()}"
+                response = f"{response}\n\n{self.ethical_guidelines.get_session_disclaimer()}"
             
             # Add bot message to conversation history
             self.memory.add_bot_message(user_id, response)
